@@ -38,7 +38,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 20px;
         }
@@ -56,24 +56,60 @@
             font-weight: 500;
         }
 
-        #timer-box {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            color: #92400e;
-            border: 1px solid #fcd34d;
-            padding: 12px 20px;
-            text-align: center;
-            font-size: 17px;
-            font-weight: 700;
-            border-radius: 10px;
-            margin-bottom: 35px;
+        /* تصميم خانة اسم الطالبة والعداد */
+        .top-panel {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
             position: sticky;
             top: 15px;
             z-index: 100;
+        }
+
+        #student-name-box {
+            flex: 2;
+            background: #ffffff;
+            border: 2px solid var(--primary);
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #student-name-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        #timer-box {
+            flex: 1;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            border: 1px solid #fcd34d;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 10px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
+        }
+
+        /* تعطيل الأسئلة حتى يتم كتابة الاسم */
+        #quiz-content {
+            opacity: 0.4;
+            pointer-events: none;
+            transition: 0.3s ease;
         }
 
         h3.section-title {
@@ -219,206 +255,214 @@
 <div class="container">
     <header>
         <h1>اختبار الوحدة الثالثة – البرمجة والذكاء الاصطناعي</h1>
-       
+        <div class="subtitle">20 سؤالًا | مستوى متوسط | قياس الفهم والتطبيق</div>
     </header>
 
-    <div id="timer-box">
-        <span>⏱️ الوقت المتبقي للاختبار:</span>
-        <span id="time" style="font-family: monospace; font-size: 20px;">20:00</span>
+    <!-- خانة الاسم والعداد -->
+    <div class="top-panel">
+        <div id="student-name-box">
+            <span>👤 اسم الطالبة:</span>
+            <input type="text" id="studentName" placeholder="اكتبي اسمك الثلاثي هنا للبدء..." oninput="checkStudentName()">
+        </div>
+        <div id="timer-box">
+            <span>⏱️</span>
+            <span id="time" style="font-family: monospace; font-size: 18px;">20:00</span>
+        </div>
     </div>
 
     <form id="quizForm">
-        
-        <!-- أولًا: البنية العامة لتطبيقات الويب -->
-        <h3 class="section-title">أولًا: البنية العامة لتطبيقات الويب (الدرس 3-1)</h3>
+        <div id="quiz-content">
+            <!-- أولًا: البنية العامة لتطبيقات الويب -->
+            <h3 class="section-title">أولًا: البنية العامة لتطبيقات الويب (الدرس 3-1)</h3>
 
-        <div class="question" data-q="q1" data-title="السؤال 1 (البنية العامة)">
-            <p>1. عند استخدام موقع للتسوق الإلكتروني، أدخل المستخدم اسم منتج في مربع البحث، لكن الموقع عرض نتائج غير مطابقة. أي طبقة تتحمل المسؤولية الأساسية عن معالجة كلمات البحث وتطبيق قواعد البحث؟</p>
-            <label><input type="radio" name="q1" value="A" data-text="أ) الواجهة الأمامية (Frontend)."> أ) الواجهة الأمامية (Frontend).</label>
-            <label><input type="radio" name="q1" value="B" data-text="ب) الواجهة الخلفية (Backend)."> ب) الواجهة الخلفية (Backend).</label>
-            <label><input type="radio" name="q1" value="C" data-text="ج) قاعدة البيانات (Database)."> ج) قاعدة البيانات (Database).</label>
-            <label><input type="radio" name="q1" value="D" data-text="د) متصفح الويب (Browser)."> د) متصفح الويب (Browser).</label>
-            <div class="explanation">التفسير: المعالجة وتطبيق قواعد البحث من مسؤولية الواجهة الخلفية.</div>
+            <div class="question" data-q="q1" data-title="السؤال 1 (البنية العامة)">
+                <p>1. عند استخدام موقع للتسوق الإلكتروني، أدخل المستخدم اسم منتج في مربع البحث، لكن الموقع عرض نتائج غير مطابقة. أي طبقة تتحمل المسؤولية الأساسية عن معالجة كلمات البحث وتطبيق قواعد البحث؟</p>
+                <label><input type="radio" name="q1" value="A" data-text="أ) الواجهة الأمامية (Frontend)."> أ) الواجهة الأمامية (Frontend).</label>
+                <label><input type="radio" name="q1" value="B" data-text="ب) الواجهة الخلفية (Backend)."> ب) الواجهة الخلفية (Backend).</label>
+                <label><input type="radio" name="q1" value="C" data-text="ج) قاعدة البيانات (Database)."> ج) قاعدة البيانات (Database).</label>
+                <label><input type="radio" name="q1" value="D" data-text="د) متصفح الويب (Browser)."> د) متصفح الويب (Browser).</label>
+                <div class="explanation">التفسير: المعالجة وتطبيق قواعد البحث من مسؤولية الواجهة الخلفية.</div>
+            </div>
+
+            <div class="question" data-q="q2" data-title="السؤال 2 (طبقة البيانات)">
+                <p>2. قام مطور بتصميم صفحة تعرض المنتجات بشكل جيد، وتسمح للمستخدم بإدخال بياناته، ولكن لا يستطيع الموقع الاحتفاظ بمعلومات الطلبات بعد إغلاق الصفحة. ما الجزء الذي يحتاج إلى تطوير بشكل أساسي؟</p>
+                <label><input type="radio" name="q2" value="A" data-text="أ) الواجهة الأمامية."> أ) الواجهة الأمامية.</label>
+                <label><input type="radio" name="q2" value="B" data-text="ب) الواجهة الخلفية فقط."> ب) الواجهة الخلفية فقط.</label>
+                <label><input type="radio" name="q2" value="C" data-text="ج) طبقة البيانات."> ج) طبقة البيانات.</label>
+                <label><input type="radio" name="q2" value="D" data-text="د) شاشة عرض المنتجات."> د) شاشة عرض المنتجات.</label>
+                <div class="explanation">التفسير: حفظ البيانات واسترجاعها من مسؤولية طبقة البيانات.</div>
+            </div>
+
+            <div class="question" data-q="q3" data-title="السؤال 3 (المشكلة في المعالجة)">
+                <p>3. في تطبيق للتواصل الاجتماعي، يستطيع المستخدم مشاهدة المنشورات وكتابة منشور جديد، ولكن لا تظهر المنشورات الجديدة للمستخدمين الآخرين. أي تفسير هو الأكثر منطقية؟</p>
+                <label><input type="radio" name="q3" value="A" data-text="أ) الواجهة الأمامية لا تعرض الألوان بصورة صحيحة."> أ) الواجهة الأمامية لا تعرض الألوان بصورة صحيحة.</label>
+                <label><input type="radio" name="q3" value="B" data-text="ب) قد توجد مشكلة في معالجة الطلبات أو حفظ المنشورات في طبقة البيانات."> ب) قد توجد مشكلة في معالجة الطلبات أو حفظ المنشورات في طبقة البيانات.</label>
+                <label><input type="radio" name="q3" value="C" data-text="ج) حجم شاشة المستخدم غير مناسب."> ج) حجم شاشة المستخدم غير مناسب.</label>
+                <label><input type="radio" name="q3" value="D" data-text="د) المتصفح لا يستطيع عرض الصور."> د) المتصفح لا يستطيع عرض الصور.</label>
+                <div class="explanation">التفسير: المشكلة قد تكون في المعالجة أو حفظ المنشورات.</div>
+            </div>
+
+            <div class="question" data-q="q4" data-title="السؤال 4 (تسلسل الطبقات)">
+                <p>4. عند البحث عن منتج في متجر إلكتروني، ما الترتيب الصحيح لتعاون الطبقات الثلاث؟</p>
+                <label><input type="radio" name="q4" value="A" data-text="أ) قاعدة البيانات تستقبل البحث ← الواجهة الأمامية تعالج الطلب ← الواجهة الخلفية تعرض النتيجة."> أ) قاعدة البيانات تستقبل البحث ← الواجهة الأمامية تعالج الطلب ← الواجهة الخلفية تعرض النتيجة.</label>
+                <label><input type="radio" name="q4" value="B" data-text="ب) الواجهة الخلفية تستقبل كلمات البحث من المستخدم ← قاعدة البيانات تعرض النتائج ← الواجهة الأمامية تخزنها."> ب) الواجهة الخلفية تستقبل كلمات البحث من المستخدم ← قاعدة البيانات تعرض النتائج ← الواجهة الأمامية تخزنها.</label>
+                <label><input type="radio" name="q4" value="C" data-text="ج) الواجهة الأمامية تجمع كلمات البحث وترسلها للخلفية ← الخلفية تطلب البيانات من قاعدة البيانات ← تعود النتائج وتُعرض للمستخدم."> ج) الواجهة الأمامية تجمع كلمات البحث وترسلها للخلفية ← الخلفية تطلب البيانات من قاعدة البيانات ← تعود النتائج وتُعرض للمستخدم.</label>
+                <label><input type="radio" name="q4" value="D" data-text="د) الواجهة الأمامية تبحث داخل قاعدة البيانات مباشرة دون الحاجة إلى الواجهة الخلفية."> د) الواجهة الأمامية تبحث داخل قاعدة البيانات مباشرة دون الحاجة إلى الواجهة الخلفية.</label>
+                <div class="explanation">التفسير: تسلسل الطلب والاستجابة يبدأ من الواجهة الأمامية ثم الخلفية فقاعدة البيانات.</div>
+            </div>
+
+            <div class="question" data-q="q5" data-title="السؤال 5 (توزيع المسؤوليات)">
+                <p>5. قررت عيادة إنشاء تطبيق ويب لحجز المواعيد. أي توزيع للمسؤوليات هو الأنسب؟</p>
+                <label><input type="radio" name="q5" value="A" data-text="أ) الواجهة الأمامية تخزن الزيارات السابقة، والخلفية تعرض نموذج الحجز، وقاعدة البيانات تتحقق من المواعيد."> أ) الواجهة الأمامية تخزن الزيارات السابقة، والخلفية تعرض نموذج الحجز، وقاعدة البيانات تتحقق من المواعيد.</label>
+                <label><input type="radio" name="q5" value="B" data-text="ب) الواجهة الأمامية تعرض نموذج الحجز، والخلفية تتحقق من المواعيد المتاحة، وقاعدة البيانات تخزن الزيارات السابقة."> ب) الواجهة الأمامية تعرض نموذج الحجز، والخلفية تتحقق من المواعيد المتاحة، وقاعدة البيانات تخزن الزيارات السابقة.</label>
+                <label><input type="radio" name="q5" value="C" data-text="ج) الواجهة الأمامية تنفذ جميع المهام، وقاعدة البيانات تعرض النتائج."> ج) الواجهة الأمامية تنفذ جميع المهام، وقاعدة البيانات تعرض النتائج.</label>
+                <label><input type="radio" name="q5" value="D" data-text="د) قاعدة البيانات تستقبل مدخلات المستخدم وتعرض نموذج الحجز مباشرة."> د) قاعدة البيانات تستقبل مدخلات المستخدم وتعرض نموذج الحجز مباشرة.</label>
+                <div class="explanation">التفسير: كل طبقة تؤدي دورها المناسب في الحجز والتحقق والتخزين.</div>
+            </div>
+
+            <div class="question" data-q="q6" data-title="السؤال 6 (فصل المسؤوليات)">
+                <p>6. لماذا يُفضل فصل تطبيق الويب إلى واجهة أمامية وواجهة خلفية وطبقة بيانات؟</p>
+                <label><input type="radio" name="q6" value="A" data-text="أ) لجعل جميع أجزاء التطبيق تؤدي الوظيفة نفسها."> أ) لجعل جميع أجزاء التطبيق تؤدي الوظيفة نفسها.</label>
+                <label><input type="radio" name="q6" value="B" data-text="ب) لمنع المستخدم من التفاعل مع التطبيق."> ب) لمنع المستخدم من التفاعل مع التطبيق.</label>
+                <label><input type="radio" name="q6" value="C" data-text="ج) لتنظيم المسؤوليات بحيث تتولى كل طبقة مهام محددة وتتعاون مع الطبقات الأخرى."> ج) لتنظيم المسؤوليات بحيث تتولى كل طبقة مهام محددة وتتعاون مع الطبقات الأخرى.</label>
+                <label><input type="radio" name="q6" value="D" data-text="د) للاستغناء عن الحاجة إلى تخزين البيانات."> د) للاستغناء عن الحاجة إلى تخزين البيانات.</label>
+                <div class="explanation">التفسير: فصل المسؤوليات ينظم العمل والتعاون بين الطبقات.</div>
+            </div>
+
+            <!-- ثانيًا: طرق اتصال تطبيقات الويب -->
+            <h3 class="section-title">ثانيًا: طرق اتصال تطبيقات الويب (الدرس 3-2)</h3>
+
+            <div class="question" data-q="q7" data-title="السؤال 7 (العميل)">
+                <p>7. يستخدم طالب متصفح الويب لطلب عرض جدول الحصص من خادم المدرسة. في هذا الموقف، ما الذي يمثل العميل (Client)؟</p>
+                <label><input type="radio" name="q7" value="A" data-text="أ) خادم المدرسة."> أ) خادم المدرسة.</label>
+                <label><input type="radio" name="q7" value="B" data-text="ب) قاعدة بيانات المدرسة."> ب) قاعدة بيانات المدرسة.</label>
+                <label><input type="radio" name="q7" value="C" data-text="ج) متصفح الويب الذي يرسل الطلب."> ج) متصفح الويب الذي يرسل الطلب.</label>
+                <label><input type="radio" name="q7" value="D" data-text="د) ملف جدول الحصص المخزن."> د) ملف جدول الحصص المخزن.</label>
+                <div class="explanation">التفسير: المتصفح هو العميل الذي يرسل الطلب.</div>
+            </div>
+
+            <div class="question" data-q="q8" data-title="السؤال 8 (طريقة POST)">
+                <p>8. يريد طالب تسجيل الدخول إلى منصة تعليمية عن طريق إرسال اسم المستخدم وكلمة المرور إلى الخادم. أي طريقة طلب HTTP هي الأنسب عادةً؟</p>
+                <label><input type="radio" name="q8" value="A" data-text="أ) GET لأنها مخصصة لإرسال بيانات النماذج."> أ) GET لأنها مخصصة لإرسال بيانات النماذج.</label>
+                <label><input type="radio" name="q8" value="B" data-text="ب) POST لأنها تُستخدم عادةً لإرسال البيانات ليعالجها الخادم."> ب) POST لأنها تُستخدم عادةً لإرسال البيانات ليعالجها الخادم.</label>
+                <label><input type="radio" name="q8" value="C" data-text="ج) HTTPS لأنها طريقة طلب لإرسال البيانات."> ج) HTTPS لأنها طريقة طلب لإرسال البيانات.</label>
+                <label><input type="radio" name="q8" value="D" data-text="د) JSON لأنها بروتوكول لإرسال كلمات المرور."> د) JSON لأنها بروتوكول لإرسال كلمات المرور.</label>
+                <div class="explanation">التفسير: POST تُستخدم لإرسال بيانات النماذج بأمان أكثر لمعالجتها.</div>
+            </div>
+
+            <div class="question" data-q="q9" data-title="السؤال 9 (رمز 404)">
+                <p>9. طلب المستخدم صفحة ويب من الخادم، وأعاد الخادم رمز الحالة HTTP 404. ما التفسير الصحيح للموقف؟</p>
+                <label><input type="radio" name="q9" value="A" data-text="أ) تمت معالجة الطلب بنجاح."> أ) تمت معالجة الطلب بنجاح.</label>
+                <label><input type="radio" name="q9" value="B" data-text="ب) حدث خطأ داخلي في الخادم بالضرورة."> ب) حدث خطأ داخلي في الخادم بالضرورة.</label>
+                <label><input type="radio" name="q9" value="C" data-text="ج) المورد المطلوب غير موجود بهذا العنوان."> ج) المورد المطلوب غير موجود بهذا العنوان.</label>
+                <label><input type="radio" name="q9" value="D" data-text="د) الاتصال أصبح مشفرًا بنجاح."> د) الاتصال أصبح مشفرًا بنجاح.</label>
+                <div class="explanation">التفسير: 404 تعني أن المورد غير موجود بهذا العنوان.</div>
+            </div>
+
+            <div class="question" data-q="q10" data-title="السؤال 10 (رمز 500)">
+                <p>10. حاول المستخدم فتح صفحة على موقع إلكتروني، وأعاد الخادم رمز الحالة 500. أي استنتاج يمكن الوصول إليه؟</p>
+                <label><input type="radio" name="q10" value="A" data-text="أ) الصفحة المطلوبة غير موجودة حتمًا."> أ) الصفحة المطلوبة غير موجودة حتمًا.</label>
+                <label><input type="radio" name="q10" value="B" data-text="ب) حدث خطأ داخلي في الخادم منعه من إكمال الطلب."> ب) حدث خطأ داخلي في الخادم منعه من إكمال الطلب.</label>
+                <label><input type="radio" name="q10" value="C" data-text="ج) تمت معالجة الطلب بنجاح."> ج) تمت معالجة الطلب بنجاح.</label>
+                <label><input type="radio" name="q10" value="D" data-text="د) المستخدم أدخل عنوان بريد إلكتروني غير صحيح بالضرورة."> د) المستخدم أدخل عنوان بريد إلكتروني غير صحيح بالضرورة.</label>
+                <div class="explanation">التفسير: 500 يشير إلى خطأ داخلي في الخادم.</div>
+            </div>
+
+            <div class="question" data-q="q11" data-title="السؤال 11 (HTTPS)">
+                <p>11. عند إدخال بيانات تسجيل الدخول في موقع يستخدم HTTP عاديًا، ما الخطر الذي يحاول HTTPS تقليله عند استخدامه بدلًا منه؟</p>
+                <label><input type="radio" name="q11" value="A" data-text="أ) زيادة حجم الشاشة المستخدمة."> أ) زيادة حجم الشاشة المستخدمة.</label>
+                <label><input type="radio" name="q11" value="B" data-text="ب) منع المستخدم من إرسال البيانات."> ب) منع المستخدم من إرسال البيانات.</label>
+                <label><input type="radio" name="q11" value="C" data-text="ج) حماية سرية الاتصال وسلامته ومصادقة الخادم باستخدام TLS."> ج) حماية سرية الاتصال وسلامته ومصادقة الخادم باستخدام TLS.</label>
+                <label><input type="radio" name="q11" value="D" data-text="د) تحويل بيانات المستخدم إلى صور."> د) تحويل بيانات المستخدم إلى صور.</label>
+                <div class="explanation">التفسير: HTTPS يستخدم بروتوكول TLS لتشفير وحماية البيانات.</div>
+            </div>
+
+            <div class="question" data-q="q12" data-title="السؤال 12 (API)">
+                <p>12. يريد تطبيق الطقس الحصول على توقعات الطقس من خدمة خارجية. ما الدور الأساسي لواجهة برمجة التطبيقات (API) في هذا الموقف؟</p>
+                <label><input type="radio" name="q12" value="A" data-text="أ) تغيير ألوان واجهة التطبيق."> أ) تغيير ألوان واجهة التطبيق.</label>
+                <label><input type="radio" name="q12" value="B" data-text="ب) توفير قواعد واضحة تسمح للتطبيق بطلب البيانات من الخدمة الأخرى."> ب) توفير قواعد واضحة تسمح للتطبيق بطلب البيانات من الخدمة الأخرى.</label>
+                <label><input type="radio" name="q12" value="C" data-text="ج) تخزين جميع البيانات داخل متصفح المستخدم فقط."> ج) تخزين جميع البيانات داخل متصفح المستخدم فقط.</label>
+                <label><input type="radio" name="q12" value="D" data-text="د) تشفير شاشة التطبيق ومنع تعديلها."> د) تشفير شاشة التطبيق ومنع تعديلها.</label>
+                <div class="explanation">التفسير: API توفر قواعد التواصل وطلب البيانات بين البرامج والخدمات.</div>
+            </div>
+
+            <div class="question" data-q="q13" data-title="السؤال 13 (JSON)">
+                <p>13. أعادت خدمة الطقس البيانات التالية: <br><code>{ "city": "Cairo", "temperature": 31 }</code><br>يريد التطبيق عرض درجة الحرارة للمستخدم. ما الاختيار الصحيح؟</p>
+                <label><input type="radio" name="q13" value="A" data-text="أ) استخدام القيمة المرتبطة بالمفتاح city."> أ) استخدام القيمة المرتبطة بالمفتاح city.</label>
+                <label><input type="radio" name="q13" value="B" data-text="ب) استخدام القيمة المرتبطة بالمفتاح temperature."> ب) استخدام القيمة المرتبطة بالمفتاح temperature.</label>
+                <label><input type="radio" name="q13" value="C" data-text="ج) استخدام اسم JSON باعتباره درجة الحرارة."> ج) استخدام اسم JSON باعتباره درجة الحرارة.</label>
+                <label><input type="radio" name="q13" value="D" data-text="د) استخدام الأقواس باعتبارها قيمة درجة الحرارة."> د) استخدام الأقواس باعتبارها قيمة درجة الحرارة.</label>
+                <div class="explanation">التفسير: المفتاح temperature يرتبط بالقيمة الخاصة بدرجة الحرارة.</div>
+            </div>
+
+            <!-- ثالثًا: أساسيات تقنية الواجهة الأمامية -->
+            <h3 class="section-title">ثالثًا: أساسيات تقنية الواجهة الأمامية (الدرس 3-3)</h3>
+
+            <div class="question" data-q="q14" data-title="السؤال 14 (CSS)">
+                <p>14. أنشأ مطور صفحة ويب تحتوي على عناوين وفقرات وروابط، لكنها تظهر بدون ألوان أو تنسيق جذاب. ما التقنية التي يحتاج إلى استخدامها لتحسين مظهر الصفحة؟</p>
+                <label><input type="radio" name="q14" value="A" data-text="أ) HTML."> أ) HTML.</label>
+                <label><input type="radio" name="q14" value="B" data-text="ب) CSS."> ب) CSS.</label>
+                <label><input type="radio" name="q14" value="C" data-text="ج) JavaScript."> ج) JavaScript.</label>
+                <label><input type="radio" name="q14" value="D" data-text="د) JSON."> د) JSON.</label>
+                <div class="explanation">التفسير: CSS مسؤولة عن المظهر والألوان والتنسيق.</div>
+            </div>
+
+            <div class="question" data-q="q15" data-title="السؤال 15 (JavaScript)">
+                <p>15. تحتوي صفحة ويب على زر عند الضغط عليه يقوم بزيادة عدد المسجلين في نشاط معين. أي تقنية مسؤولة عن تنفيذ هذا السلوك التفاعلي؟</p>
+                <label><input type="radio" name="q15" value="A" data-text="أ) HTML."> أ) HTML.</label>
+                <label><input type="radio" name="q15" value="B" data-text="ب) CSS."> ب) CSS.</label>
+                <label><input type="radio" name="q15" value="C" data-text="ج) JavaScript."> ج) JavaScript.</label>
+                <label><input type="radio" name="q15" value="D" data-text="د) HTTPS."> د) HTTPS.</label>
+                <div class="explanation">التفسير: JavaScript مسؤولة عن التفاعلية وتحديث السلوك.</div>
+            </div>
+
+            <div class="question" data-q="q16" data-title="السؤال 16 (HTML الدلالية)">
+                <p>16. أنشأ مطور صفحة ويب تحتوي على العناصر التالية: عنوان رئيسي، قائمة تنقل، ومحتوى رئيسي. يريد أن تكون بنية الصفحة مفهومة بشكل أفضل لقارئات الشاشة ومحركات البحث. ما الاختيار الأنسب؟</p>
+                <label><input type="radio" name="q16" value="A" data-text="أ) استخدام عناصر HTML الدلالية مثل header وnav وmain."> أ) استخدام عناصر HTML الدلالية مثل header وnav وmain.</label>
+                <label><input type="radio" name="q16" value="B" data-text="ب) تغيير ألوان الصفحة باستخدام CSS فقط."> ب) تغيير ألوان الصفحة باستخدام CSS فقط.</label>
+                <label><input type="radio" name="q16" value="C" data-text="ج) إضافة صور أكثر إلى الصفحة."> ج) إضافة صور أكثر إلى الصفحة.</label>
+                <label><input type="radio" name="q16" value="D" data-text="د) استخدام JavaScript بدلًا من HTML."> د) استخدام JavaScript بدلًا من HTML.</label>
+                <div class="explanation">التفسير: HTML الدلالية توضح وتصف وظيفة أجزاء الصفحة لمحركات البحث ومستلزمات الوصول.</div>
+            </div>
+
+            <div class="question" data-q="q17" data-title="السؤال 17 (التصميم المتجاوب)">
+                <p>17. صمم مطور موقعًا يعمل بصورة جيدة على شاشة الكمبيوتر، ولكن عند فتحه على الهاتف تظهر أجزاء الصفحة خارج حدود الشاشة ويصعب استخدامها. ما الحل الأنسب؟</p>
+                <label><input type="radio" name="q17" value="A" data-text="أ) استخدام HTML الدلالية فقط."> أ) استخدام HTML الدلالية فقط.</label>
+                <label><input type="radio" name="q17" value="B" data-text="ب) استخدام التصميم المتجاوب (Responsive Design)."> ب) استخدام التصميم المتجاوب (Responsive Design).</label>
+                <label><input type="radio" name="q17" value="C" data-text="ج) استخدام API."> ج) استخدام API.</label>
+                <label><input type="radio" name="q17" value="D" data-text="د) استخدام طريقة POST."> د) استخدام طريقة POST.</label>
+                <div class="explanation">التفسير: التصميم المتجاوب يعالج اختلاف أحجام الشاشات والأجهزة.</div>
+            </div>
+
+            <div class="question" data-q="q18" data-title="السؤال 18 (موقع متعدد الأجهزة)">
+                <p>18. يريد مطور إنشاء موقع تعليمي يمكن استخدامه على الكمبيوتر والهاتف والجهاز اللوحي دون الحاجة إلى تصميم صفحة منفصلة لكل جهاز. ما الفكرة التي يجب الاعتماد عليها؟</p>
+                <label><input type="radio" name="q18" value="A" data-text="أ) التصميم المتجاوب الذي يضبط التخطيط وفقًا لحجم الشاشة."> أ) التصميم المتجاوب الذي يضبط التخطيط وفقًا لحجم الشاشة.</label>
+                <label><input type="radio" name="q18" value="B" data-text="ب) استخدام قاعدة بيانات أكبر."> ب) استخدام قاعدة بيانات أكبر.</label>
+                <label><input type="radio" name="q18" value="C" data-text="ج) الاعتماد على HTML وحدها دون أي تنسيق."> ج) الاعتماد على HTML وحدها دون أي تنسيق.</label>
+                <label><input type="radio" name="q18" value="D" data-text="د) استخدام HTTP بدلًا من HTTPS."> د) استخدام HTTP بدلًا من HTTPS.</label>
+                <div class="explanation">التفسير: التصميم المتجاوب يجعل التخطيط ملائماً لمختلف الأجهزة تلقائياً.</div>
+            </div>
+
+            <div class="question" data-q="q19" data-title="السؤال 19 (React)">
+                <p>19. يعمل فريق تطوير على إنشاء تطبيق ويب، ويريد تقليل كتابة الأكواد المتكررة وإعادة استخدام مكونات واجهة المستخدم عند تغير البيانات. أي اختيار يتناسب مع هذه الحاجة؟</p>
+                <label><input type="radio" name="q19" value="A" data-text="أ) استخدام React."> أ) استخدام React.</label>
+                <label><input type="radio" name="q19" value="B" data-text="ب) استخدام HTTP."> ب) استخدام HTTP.</label>
+                <label><input type="radio" name="q19" value="C" data-text="ج) استخدام قاعدة البيانات فقط."> ج) استخدام قاعدة البيانات فقط.</label>
+                <label><input type="radio" name="q19" value="D" data-text="د) استخدام JSON."> د) استخدام JSON.</label>
+                <div class="explanation">التفسير: React مكتبة تساعد في بناء واجهات من مكونات قابلة لإعادة الاستخدام.</div>
+            </div>
+
+            <div class="question" data-q="q20" data-title="السؤال 20 (توزيع التقنيات)">
+                <p>20. يريد نادي طلابي إنشاء صفحة تعرض الفعاليات، وتنسق ألوان النادي، وتحتوي على عداد يتغير عند الضغط على زر التسجيل. ما التوزيع الصحيح للتقنيات؟</p>
+                <label><input type="radio" name="q20" value="A" data-text="أ) HTML لتنسيق الألوان، وCSS لتحديث العداد، وJavaScript لإنشاء هيكل الصفحة."> أ) HTML لتنسيق الألوان، وCSS لتحديث العداد، وJavaScript لإنشاء هيكل الصفحة.</label>
+                <label><input type="radio" name="q20" value="B" data-text="ب) HTML لبناء محتوى الفعاليات، وCSS لتنسيق الألوان، وJavaScript لتحديث العداد."> ب) HTML لبناء محتوى الفعاليات، وCSS لتنسيق الألوان، وJavaScript لتحديث العداد.</label>
+                <label><input type="radio" name="q20" value="C" data-text="ج) HTML لتحديث العداد، وCSS لبناء المحتوى، وJavaScript لتنسيق الألوان."> ج) HTML لتحديث العداد، وCSS لبناء المحتوى، وJavaScript لتنسيق الألوان.</label>
+                <label><input type="radio" name="q20" value="D" data-text="د) HTML لتنفيذ جميع المهام دون الحاجة إلى التقنيات الأخرى."> د) HTML لتنفيذ جميع المهام دون الحاجة إلى التقنيات الأخرى.</label>
+                <div class="explanation">التفسير: HTML للبنية والمحتوى، وCSS للمظهر والتنسيق، وJavaScript للتفاعل وتحديث العداد.</div>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="calculateScore()">إرسال الإجابات وعرض النتيجة</button>
         </div>
-
-        <div class="question" data-q="q2" data-title="السؤال 2 (طبقة البيانات)">
-            <p>2. قام مطور بتصميم صفحة تعرض المنتجات بشكل جيد، وتسمح للمستخدم بإدخال بياناته، ولكن لا يستطيع الموقع الاحتفاظ بمعلومات الطلبات بعد إغلاق الصفحة. ما الجزء الذي يحتاج إلى تطوير بشكل أساسي؟</p>
-            <label><input type="radio" name="q2" value="A" data-text="أ) الواجهة الأمامية."> أ) الواجهة الأمامية.</label>
-            <label><input type="radio" name="q2" value="B" data-text="ب) الواجهة الخلفية فقط."> ب) الواجهة الخلفية فقط.</label>
-            <label><input type="radio" name="q2" value="C" data-text="ج) طبقة البيانات."> ج) طبقة البيانات.</label>
-            <label><input type="radio" name="q2" value="D" data-text="د) شاشة عرض المنتجات."> د) شاشة عرض المنتجات.</label>
-            <div class="explanation">التفسير: حفظ البيانات واسترجاعها من مسؤولية طبقة البيانات.</div>
-        </div>
-
-        <div class="question" data-q="q3" data-title="السؤال 3 (المشكلة في المعالجة)">
-            <p>3. في تطبيق للتواصل الاجتماعي، يستطيع المستخدم مشاهدة المنشورات وكتابة منشور جديد، ولكن لا تظهر المنشورات الجديدة للمستخدمين الآخرين. أي تفسير هو الأكثر منطقية؟</p>
-            <label><input type="radio" name="q3" value="A" data-text="أ) الواجهة الأمامية لا تعرض الألوان بصورة صحيحة."> أ) الواجهة الأمامية لا تعرض الألوان بصورة صحيحة.</label>
-            <label><input type="radio" name="q3" value="B" data-text="ب) قد توجد مشكلة في معالجة الطلبات أو حفظ المنشورات في طبقة البيانات."> ب) قد توجد مشكلة في معالجة الطلبات أو حفظ المنشورات في طبقة البيانات.</label>
-            <label><input type="radio" name="q3" value="C" data-text="ج) حجم شاشة المستخدم غير مناسب."> ج) حجم شاشة المستخدم غير مناسب.</label>
-            <label><input type="radio" name="q3" value="D" data-text="د) المتصفح لا يستطيع عرض الصور."> د) المتصفح لا يستطيع عرض الصور.</label>
-            <div class="explanation">التفسير: المشكلة قد تكون في المعالجة أو حفظ المنشورات.</div>
-        </div>
-
-        <div class="question" data-q="q4" data-title="السؤال 4 (تسلسل الطبقات)">
-            <p>4. عند البحث عن منتج في متجر إلكتروني، ما الترتيب الصحيح لتعاون الطبقات الثلاث؟</p>
-            <label><input type="radio" name="q4" value="A" data-text="أ) قاعدة البيانات تستقبل البحث ← الواجهة الأمامية تعالج الطلب ← الواجهة الخلفية تعرض النتيجة."> أ) قاعدة البيانات تستقبل البحث ← الواجهة الأمامية تعالج الطلب ← الواجهة الخلفية تعرض النتيجة.</label>
-            <label><input type="radio" name="q4" value="B" data-text="ب) الواجهة الخلفية تستقبل كلمات البحث من المستخدم ← قاعدة البيانات تعرض النتائج ← الواجهة الأمامية تخزنها."> ب) الواجهة الخلفية تستقبل كلمات البحث من المستخدم ← قاعدة البيانات تعرض النتائج ← الواجهة الأمامية تخزنها.</label>
-            <label><input type="radio" name="q4" value="C" data-text="ج) الواجهة الأمامية تجمع كلمات البحث وترسلها للخلفية ← الخلفية تطلب البيانات من قاعدة البيانات ← تعود النتائج وتُعرض للمستخدم."> ج) الواجهة الأمامية تجمع كلمات البحث وترسلها للخلفية ← الخلفية تطلب البيانات من قاعدة البيانات ← تعود النتائج وتُعرض للمستخدم.</label>
-            <label><input type="radio" name="q4" value="D" data-text="د) الواجهة الأمامية تبحث داخل قاعدة البيانات مباشرة دون الحاجة إلى الواجهة الخلفية."> د) الواجهة الأمامية تبحث داخل قاعدة البيانات مباشرة دون الحاجة إلى الواجهة الخلفية.</label>
-            <div class="explanation">التفسير: تسلسل الطلب والاستجابة يبدأ من الواجهة الأمامية ثم الخلفية فقاعدة البيانات.</div>
-        </div>
-
-        <div class="question" data-q="q5" data-title="السؤال 5 (توزيع المسؤوليات)">
-            <p>5. قررت عيادة إنشاء تطبيق ويب لحجز المواعيد. أي توزيع للمسؤوليات هو الأنسب؟</p>
-            <label><input type="radio" name="q5" value="A" data-text="أ) الواجهة الأمامية تخزن الزيارات السابقة، والخلفية تعرض نموذج الحجز، وقاعدة البيانات تتحقق من المواعيد."> أ) الواجهة الأمامية تخزن الزيارات السابقة، والخلفية تعرض نموذج الحجز، وقاعدة البيانات تتحقق من المواعيد.</label>
-            <label><input type="radio" name="q5" value="B" data-text="ب) الواجهة الأمامية تعرض نموذج الحجز، والخلفية تتحقق من المواعيد المتاحة، وقاعدة البيانات تخزن الزيارات السابقة."> ب) الواجهة الأمامية تعرض نموذج الحجز، والخلفية تتحقق من المواعيد المتاحة، وقاعدة البيانات تخزن الزيارات السابقة.</label>
-            <label><input type="radio" name="q5" value="C" data-text="ج) الواجهة الأمامية تنفذ جميع المهام، وقاعدة البيانات تعرض النتائج."> ج) الواجهة الأمامية تنفذ جميع المهام، وقاعدة البيانات تعرض النتائج.</label>
-            <label><input type="radio" name="q5" value="D" data-text="د) قاعدة البيانات تستقبل مدخلات المستخدم وتعرض نموذج الحجز مباشرة."> د) قاعدة البيانات تستقبل مدخلات المستخدم وتعرض نموذج الحجز مباشرة.</label>
-            <div class="explanation">التفسير: كل طبقة تؤدي دورها المناسب في الحجز والتحقق والتخزين.</div>
-        </div>
-
-        <div class="question" data-q="q6" data-title="السؤال 6 (فصل المسؤوليات)">
-            <p>6. لماذا يُفضل فصل تطبيق الويب إلى واجهة أمامية وواجهة خلفية وطبقة بيانات؟</p>
-            <label><input type="radio" name="q6" value="A" data-text="أ) لجعل جميع أجزاء التطبيق تؤدي الوظيفة نفسها."> أ) لجعل جميع أجزاء التطبيق تؤدي الوظيفة نفسها.</label>
-            <label><input type="radio" name="q6" value="B" data-text="ب) لمنع المستخدم من التفاعل مع التطبيق."> ب) لمنع المستخدم من التفاعل مع التطبيق.</label>
-            <label><input type="radio" name="q6" value="C" data-text="ج) لتنظيم المسؤوليات بحيث تتولى كل طبقة مهام محددة وتتعاون مع الطبقات الأخرى."> ج) لتنظيم المسؤوليات بحيث تتولى كل طبقة مهام محددة وتتعاون مع الطبقات الأخرى.</label>
-            <label><input type="radio" name="q6" value="D" data-text="د) للاستغناء عن الحاجة إلى تخزين البيانات."> د) للاستغناء عن الحاجة إلى تخزين البيانات.</label>
-            <div class="explanation">التفسير: فصل المسؤوليات ينظم العمل والتعاون بين الطبقات.</div>
-        </div>
-
-        <!-- ثانيًا: طرق اتصال تطبيقات الويب -->
-        <h3 class="section-title">ثانيًا: طرق اتصال تطبيقات الويب (الدرس 3-2)</h3>
-
-        <div class="question" data-q="q7" data-title="السؤال 7 (العميل)">
-            <p>7. يستخدم طالب متصفح الويب لطلب عرض جدول الحصص من خادم المدرسة. في هذا الموقف، ما الذي يمثل العميل (Client)؟</p>
-            <label><input type="radio" name="q7" value="A" data-text="أ) خادم المدرسة."> أ) خادم المدرسة.</label>
-            <label><input type="radio" name="q7" value="B" data-text="ب) قاعدة بيانات المدرسة."> ب) قاعدة بيانات المدرسة.</label>
-            <label><input type="radio" name="q7" value="C" data-text="ج) متصفح الويب الذي يرسل الطلب."> ج) متصفح الويب الذي يرسل الطلب.</label>
-            <label><input type="radio" name="q7" value="D" data-text="د) ملف جدول الحصص المخزن."> د) ملف جدول الحصص المخزن.</label>
-            <div class="explanation">التفسير: المتصفح هو العميل الذي يرسل الطلب.</div>
-        </div>
-
-        <div class="question" data-q="q8" data-title="السؤال 8 (طريقة POST)">
-            <p>8. يريد طالب تسجيل الدخول إلى منصة تعليمية عن طريق إرسال اسم المستخدم وكلمة المرور إلى الخادم. أي طريقة طلب HTTP هي الأنسب عادةً؟</p>
-            <label><input type="radio" name="q8" value="A" data-text="أ) GET لأنها مخصصة لإرسال بيانات النماذج."> أ) GET لأنها مخصصة لإرسال بيانات النماذج.</label>
-            <label><input type="radio" name="q8" value="B" data-text="ب) POST لأنها تُستخدم عادةً لإرسال البيانات ليعالجها الخادم."> ب) POST لأنها تُستخدم عادةً لإرسال البيانات ليعالجها الخادم.</label>
-            <label><input type="radio" name="q8" value="C" data-text="ج) HTTPS لأنها طريقة طلب لإرسال البيانات."> ج) HTTPS لأنها طريقة طلب لإرسال البيانات.</label>
-            <label><input type="radio" name="q8" value="D" data-text="د) JSON لأنها بروتوكول لإرسال كلمات المرور."> د) JSON لأنها بروتوكول لإرسال كلمات المرور.</label>
-            <div class="explanation">التفسير: POST تُستخدم لإرسال بيانات النماذج بأمان أكثر لمعالجتها.</div>
-        </div>
-
-        <div class="question" data-q="q9" data-title="السؤال 9 (رمز 404)">
-            <p>9. طلب المستخدم صفحة ويب من الخادم، وأعاد الخادم رمز الحالة HTTP 404. ما التفسير الصحيح للموقف؟</p>
-            <label><input type="radio" name="q9" value="A" data-text="أ) تمت معالجة الطلب بنجاح."> أ) تمت معالجة الطلب بنجاح.</label>
-            <label><input type="radio" name="q9" value="B" data-text="ب) حدث خطأ داخلي في الخادم بالضرورة."> ب) حدث خطأ داخلي في الخادم بالضرورة.</label>
-            <label><input type="radio" name="q9" value="C" data-text="ج) المورد المطلوب غير موجود بهذا العنوان."> ج) المورد المطلوب غير موجود بهذا العنوان.</label>
-            <label><input type="radio" name="q9" value="D" data-text="د) الاتصال أصبح مشفرًا بنجاح."> د) الاتصال أصبح مشفرًا بنجاح.</label>
-            <div class="explanation">التفسير: 404 تعني أن المورد غير موجود بهذا العنوان.</div>
-        </div>
-
-        <div class="question" data-q="q10" data-title="السؤال 10 (رمز 500)">
-            <p>10. حاول المستخدم فتح صفحة على موقع إلكتروني، وأعاد الخادم رمز الحالة 500. أي استنتاج يمكن الوصول إليه؟</p>
-            <label><input type="radio" name="q10" value="A" data-text="أ) الصفحة المطلوبة غير موجودة حتمًا."> أ) الصفحة المطلوبة غير موجودة حتمًا.</label>
-            <label><input type="radio" name="q10" value="B" data-text="ب) حدث خطأ داخلي في الخادم منعه من إكمال الطلب."> ب) حدث خطأ داخلي في الخادم منعه من إكمال الطلب.</label>
-            <label><input type="radio" name="q10" value="C" data-text="ج) تمت معالجة الطلب بنجاح."> ج) تمت معالجة الطلب بنجاح.</label>
-            <label><input type="radio" name="q10" value="D" data-text="د) المستخدم أدخل عنوان بريد إلكتروني غير صحيح بالضرورة."> د) المستخدم أدخل عنوان بريد إلكتروني غير صحيح بالضرورة.</label>
-            <div class="explanation">التفسير: 500 يشير إلى خطأ داخلي في الخادم.</div>
-        </div>
-
-        <div class="question" data-q="q11" data-title="السؤال 11 (HTTPS)">
-            <p>11. عند إدخال بيانات تسجيل الدخول في موقع يستخدم HTTP عاديًا، ما الخطر الذي يحاول HTTPS تقليله عند استخدامه بدلًا منه؟</p>
-            <label><input type="radio" name="q11" value="A" data-text="أ) زيادة حجم الشاشة المستخدمة."> أ) زيادة حجم الشاشة المستخدمة.</label>
-            <label><input type="radio" name="q11" value="B" data-text="ب) منع المستخدم من إرسال البيانات."> ب) منع المستخدم من إرسال البيانات.</label>
-            <label><input type="radio" name="q11" value="C" data-text="ج) حماية سرية الاتصال وسلامته ومصادقة الخادم باستخدام TLS."> ج) حماية سرية الاتصال وسلامته ومصادقة الخادم باستخدام TLS.</label>
-            <label><input type="radio" name="q11" value="D" data-text="د) تحويل بيانات المستخدم إلى صور."> د) تحويل بيانات المستخدم إلى صور.</label>
-            <div class="explanation">التفسير: HTTPS يستخدم بروتوكول TLS لتشفير وحماية البيانات.</div>
-        </div>
-
-        <div class="question" data-q="q12" data-title="السؤال 12 (API)">
-            <p>12. يريد تطبيق الطقس الحصول على توقعات الطقس من خدمة خارجية. ما الدور الأساسي لواجهة برمجة التطبيقات (API) في هذا الموقف؟</p>
-            <label><input type="radio" name="q12" value="A" data-text="أ) تغيير ألوان واجهة التطبيق."> أ) تغيير ألوان واجهة التطبيق.</label>
-            <label><input type="radio" name="q12" value="B" data-text="ب) توفير قواعد واضحة تسمح للتطبيق بطلب البيانات من الخدمة الأخرى."> ب) توفير قواعد واضحة تسمح للتطبيق بطلب البيانات من الخدمة الأخرى.</label>
-            <label><input type="radio" name="q12" value="C" data-text="ج) تخزين جميع البيانات داخل متصفح المستخدم فقط."> ج) تخزين جميع البيانات داخل متصفح المستخدم فقط.</label>
-            <label><input type="radio" name="q12" value="D" data-text="د) تشفير شاشة التطبيق ومنع تعديلها."> د) تشفير شاشة التطبيق ومنع تعديلها.</label>
-            <div class="explanation">التفسير: API توفر قواعد التواصل وطلب البيانات بين البرامج والخدمات.</div>
-        </div>
-
-        <div class="question" data-q="q13" data-title="السؤال 13 (JSON)">
-            <p>13. أعادت خدمة الطقس البيانات التالية: <br><code>{ "city": "Cairo", "temperature": 31 }</code><br>يريد التطبيق عرض درجة الحرارة للمستخدم. ما الاختيار الصحيح؟</p>
-            <label><input type="radio" name="q13" value="A" data-text="أ) استخدام القيمة المرتبطة بالمفتاح city."> أ) استخدام القيمة المرتبطة بالمفتاح city.</label>
-            <label><input type="radio" name="q13" value="B" data-text="ب) استخدام القيمة المرتبطة بالمفتاح temperature."> ب) استخدام القيمة المرتبطة بالمفتاح temperature.</label>
-            <label><input type="radio" name="q13" value="C" data-text="ج) استخدام اسم JSON باعتباره درجة الحرارة."> ج) استخدام اسم JSON باعتباره درجة الحرارة.</label>
-            <label><input type="radio" name="q13" value="D" data-text="د) استخدام الأقواس باعتبارها قيمة درجة الحرارة."> د) استخدام الأقواس باعتبارها قيمة درجة الحرارة.</label>
-            <div class="explanation">التفسير: المفتاح temperature يرتبط بالقيمة الخاصة بدرجة الحرارة.</div>
-        </div>
-
-        <!-- ثالثًا: أساسيات تقنية الواجهة الأمامية -->
-        <h3 class="section-title">ثالثًا: أساسيات تقنية الواجهة الأمامية (الدرس 3-3)</h3>
-
-        <div class="question" data-q="q14" data-title="السؤال 14 (CSS)">
-            <p>14. أنشأ مطور صفحة ويب تحتوي على عناوين وفقرات وروابط، لكنها تظهر بدون ألوان أو تنسيق جذاب. ما التقنية التي يحتاج إلى استخدامها لتحسين مظهر الصفحة؟</p>
-            <label><input type="radio" name="q14" value="A" data-text="أ) HTML."> أ) HTML.</label>
-            <label><input type="radio" name="q14" value="B" data-text="ب) CSS."> ب) CSS.</label>
-            <label><input type="radio" name="q14" value="C" data-text="ج) JavaScript."> ج) JavaScript.</label>
-            <label><input type="radio" name="q14" value="D" data-text="د) JSON."> د) JSON.</label>
-            <div class="explanation">التفسير: CSS مسؤولة عن المظهر والألوان والتنسيق.</div>
-        </div>
-
-        <div class="question" data-q="q15" data-title="السؤال 15 (JavaScript)">
-            <p>15. تحتوي صفحة ويب على زر عند الضغط عليه يقوم بزيادة عدد المسجلين في نشاط معين. أي تقنية مسؤولة عن تنفيذ هذا السلوك التفاعلي؟</p>
-            <label><input type="radio" name="q15" value="A" data-text="أ) HTML."> أ) HTML.</label>
-            <label><input type="radio" name="q15" value="B" data-text="ب) CSS."> ب) CSS.</label>
-            <label><input type="radio" name="q15" value="C" data-text="ج) JavaScript."> ج) JavaScript.</label>
-            <label><input type="radio" name="q15" value="D" data-text="د) HTTPS."> د) HTTPS.</label>
-            <div class="explanation">التفسير: JavaScript مسؤولة عن التفاعلية وتحديث السلوك.</div>
-        </div>
-
-        <div class="question" data-q="q16" data-title="السؤال 16 (HTML الدلالية)">
-            <p>16. أنشأ مطور صفحة ويب تحتوي على العناصر التالية: عنوان رئيسي، قائمة تنقل، ومحتوى رئيسي. يريد أن تكون بنية الصفحة مفهومة بشكل أفضل لقارئات الشاشة ومحركات البحث. ما الاختيار الأنسب؟</p>
-            <label><input type="radio" name="q16" value="A" data-text="أ) استخدام عناصر HTML الدلالية مثل header وnav وmain."> أ) استخدام عناصر HTML الدلالية مثل header وnav وmain.</label>
-            <label><input type="radio" name="q16" value="B" data-text="ب) تغيير ألوان الصفحة باستخدام CSS فقط."> ب) تغيير ألوان الصفحة باستخدام CSS فقط.</label>
-            <label><input type="radio" name="q16" value="C" data-text="ج) إضافة صور أكثر إلى الصفحة."> ج) إضافة صور أكثر إلى الصفحة.</label>
-            <label><input type="radio" name="q16" value="D" data-text="د) استخدام JavaScript بدلًا من HTML."> د) استخدام JavaScript بدلًا من HTML.</label>
-            <div class="explanation">التفسير: HTML الدلالية توضح وتصف وظيفة أجزاء الصفحة لمحركات البحث ومستلزمات الوصول.</div>
-        </div>
-
-        <div class="question" data-q="q17" data-title="السؤال 17 (التصميم المتجاوب)">
-            <p>17. صمم مطور موقعًا يعمل بصورة جيدة على شاشة الكمبيوتر، ولكن عند فتحه على الهاتف تظهر أجزاء الصفحة خارج حدود الشاشة ويصعب استخدامها. ما الحل الأنسب؟</p>
-            <label><input type="radio" name="q17" value="A" data-text="أ) استخدام HTML الدلالية فقط."> أ) استخدام HTML الدلالية فقط.</label>
-            <label><input type="radio" name="q17" value="B" data-text="ب) استخدام التصميم المتجاوب (Responsive Design)."> ب) استخدام التصميم المتجاوب (Responsive Design).</label>
-            <label><input type="radio" name="q17" value="C" data-text="ج) استخدام API."> ج) استخدام API.</label>
-            <label><input type="radio" name="q17" value="D" data-text="د) استخدام طريقة POST."> د) استخدام طريقة POST.</label>
-            <div class="explanation">التفسير: التصميم المتجاوب يعالج اختلاف أحجام الشاشات والأجهزة.</div>
-        </div>
-
-        <div class="question" data-q="q18" data-title="السؤال 18 (موقع متعدد الأجهزة)">
-            <p>18. يريد مطور إنشاء موقع تعليمي يمكن استخدامه على الكمبيوتر والهاتف والجهاز اللوحي دون الحاجة إلى تصميم صفحة منفصلة لكل جهاز. ما الفكرة التي يجب الاعتماد عليها؟</p>
-            <label><input type="radio" name="q18" value="A" data-text="أ) التصميم المتجاوب الذي يضبط التخطيط وفقًا لحجم الشاشة."> أ) التصميم المتجاوب الذي يضبط التخطيط وفقًا لحجم الشاشة.</label>
-            <label><input type="radio" name="q18" value="B" data-text="ب) استخدام قاعدة بيانات أكبر."> ب) استخدام قاعدة بيانات أكبر.</label>
-            <label><input type="radio" name="q18" value="C" data-text="ج) الاعتماد على HTML وحدها دون أي تنسيق."> ج) الاعتماد على HTML وحدها دون أي تنسيق.</label>
-            <label><input type="radio" name="q18" value="D" data-text="د) استخدام HTTP بدلًا من HTTPS."> د) استخدام HTTP بدلًا من HTTPS.</label>
-            <div class="explanation">التفسير: التصميم المتجاوب يجعل التخطيط ملائماً لمختلف الأجهزة تلقائياً.</div>
-        </div>
-
-        <div class="question" data-q="q19" data-title="السؤال 19 (React)">
-            <p>19. يعمل فريق تطوير على إنشاء تطبيق ويب، ويريد تقليل كتابة الأكواد المتكررة وإعادة استخدام مكونات واجهة المستخدم عند تغير البيانات. أي اختيار يتناسب مع هذه الحاجة؟</p>
-            <label><input type="radio" name="q19" value="A" data-text="أ) استخدام React."> أ) استخدام React.</label>
-            <label><input type="radio" name="q19" value="B" data-text="ب) استخدام HTTP."> ب) استخدام HTTP.</label>
-            <label><input type="radio" name="q19" value="C" data-text="ج) استخدام قاعدة البيانات فقط."> ج) استخدام قاعدة البيانات فقط.</label>
-            <label><input type="radio" name="q19" value="D" data-text="د) استخدام JSON."> د) استخدام JSON.</label>
-            <div class="explanation">التفسير: React مكتبة تساعد في بناء واجهات من مكونات قابلة لإعادة الاستخدام.</div>
-        </div>
-
-        <div class="question" data-q="q20" data-title="السؤال 20 (توزيع التقنيات)">
-            <p>20. يريد نادي طلابي إنشاء صفحة تعرض الفعاليات، وتنسق ألوان النادي، وتحتوي على عداد يتغير عند الضغط على زر التسجيل. ما التوزيع الصحيح للتقنيات؟</p>
-            <label><input type="radio" name="q20" value="A" data-text="أ) HTML لتنسيق الألوان، وCSS لتحديث العداد، وJavaScript لإنشاء هيكل الصفحة."> أ) HTML لتنسيق الألوان، وCSS لتحديث العداد، وJavaScript لإنشاء هيكل الصفحة.</label>
-            <label><input type="radio" name="q20" value="B" data-text="ب) HTML لبناء محتوى الفعاليات، وCSS لتنسيق الألوان، وJavaScript لتحديث العداد."> ب) HTML لبناء محتوى الفعاليات، وCSS لتنسيق الألوان، وJavaScript لتحديث العداد.</label>
-            <label><input type="radio" name="q20" value="C" data-text="ج) HTML لتحديث العداد، وCSS لبناء المحتوى، وJavaScript لتنسيق الألوان."> ج) HTML لتحديث العداد، وCSS لبناء المحتوى، وJavaScript لتنسيق الألوان.</label>
-            <label><input type="radio" name="q20" value="D" data-text="د) HTML لتنفيذ جميع المهام دون الحاجة إلى التقنيات الأخرى."> د) HTML لتنفيذ جميع المهام دون الحاجة إلى التقنيات الأخرى.</label>
-            <div class="explanation">التفسير: HTML للبنية والمحتوى، وCSS للمظهر والتنسيق، وJavaScript للتفاعل وتحديث العداد.</div>
-        </div>
-
-        <button type="button" class="submit-btn" onclick="calculateScore()">إرسال الإجابات وعرض النتيجة</button>
     </form>
 
     <div id="result-box"></div>
@@ -442,8 +486,28 @@
     };
 
     let timerInterval;
+    let timerStarted = false;
 
-    // تشغيل العداد التنازلي فور تحميل الصفحة مباشرة
+    // دالة التحقق من كتابة الاسم لفتح الاختبار وبدء العداد
+    function checkStudentName() {
+        let nameInput = document.getElementById('studentName').value.trim();
+        let quizContent = document.getElementById('quiz-content');
+
+        if (nameInput.length > 0) {
+            quizContent.style.opacity = "1";
+            quizContent.style.pointerEvents = "auto";
+
+            // بدء العداد عند كتابة الاسم لأول مرة فقط
+            if (!timerStarted) {
+                timerStarted = true;
+                startTimer(60 * 20, document.querySelector('#time'));
+            }
+        } else {
+            quizContent.style.opacity = "0.4";
+            quizContent.style.pointerEvents = "none";
+        }
+    }
+
     function startTimer(duration, display) {
         let timer = duration, minutes, seconds;
         timerInterval = setInterval(function () {
@@ -461,14 +525,14 @@
         }, 1000);
     }
 
-    // تفعيل العداد بمجرد تحميل الصفحة
-    document.addEventListener("DOMContentLoaded", function () {
-        let twentyMinutes = 60 * 20,
-            display = document.querySelector('#time');
-        startTimer(twentyMinutes, display);
-    });
-
     function calculateScore() {
+        let studentName = document.getElementById('studentName').value.trim();
+        if (!studentName) {
+            alert("برجاء كتابة اسم الطالبة في الأعلى أولاً قبل إرسال الاختبار!");
+            document.getElementById('studentName').focus();
+            return;
+        }
+
         clearInterval(timerInterval);
 
         let score = 0;
@@ -514,9 +578,9 @@
             if (userVal !== correctAnswers[q]) {
                 hasWrongAnswers = true;
                 let correctOptText = questionDiv.querySelector(`input[value="${correctAnswers[q]}"]`).getAttribute('data-text');
-                let userOptText = userVal ? questionDiv.querySelector(`input[value="${userVal}"]`).getAttribute('data-text') : "لم يقم بالإجابة";
+                let userOptText = userVal ? questionDiv.querySelector(`input[value="${userVal}"]`).getAttribute('data-text') : "لم تقم بالإجابة";
 
-                wrongQuestionsArray.push(`${questionTitle} (إجابته: ${userOptText})`);
+                wrongQuestionsArray.push(`${questionTitle} (إجابتها: ${userOptText})`);
 
                 wrongListHTML += `
                     <div class="wrong-item">
@@ -531,14 +595,15 @@
 
         let percentage = Math.round((score / total) * 100);
 
-        // --- إرسال النتيجة والأخطاء إلى Google Sheets تلقائياً ---
-        const scriptURL = 'https://script.google.com/macros/s/AKfycby_uWhC93nYgyAxi3UcpFa3uiFlD2dpuVyldHzJWwVd7dr0Y_n8xuETTfHrYf9LzIWY/exec';
+        // --- إرسال الاسم، النتيجة، والأخطاء إلى Google Sheets تلقائياً ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzZsC_LEhjucBWxoKWvPoYmnHJF-D90IkiixSZO8VvDeS6HlqHr6kXFP-feavHG7TYy/exec';
         
         fetch(scriptURL, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
+                studentName: studentName,
                 score: score, 
                 total: total, 
                 percentage: percentage, 
@@ -548,7 +613,7 @@
 
         let resultBox = document.getElementById('result-box');
         resultBox.style.display = 'block';
-        resultBox.innerHTML = `🏆 لقد حصلت على ${score} من ${total} بنسبة نجاح (${percentage}%)`;
+        resultBox.innerHTML = `🏆 الطالبة: ${studentName} <br> لقد حصلتِ على ${score} من ${total} بنسبة نجاح (${percentage}%)`;
 
         let reviewBox = document.getElementById('review-box');
         if (hasWrongAnswers) {
@@ -559,13 +624,14 @@
             reviewBox.style.backgroundColor = "#d1fae5";
             reviewBox.style.borderColor = "#10b981";
             reviewBox.style.color = "#065f46";
-            document.getElementById('wrong-answers-list').innerHTML = "<p style='text-align: center; font-weight: 700; font-size: 16px; margin: 0;'>🎉 ممتاز جداً! لقد أجبت على جميع الأسئلة بصورة صحيحة تماماً.</p>";
+            document.getElementById('wrong-answers-list').innerHTML = "<p style='text-align: center; font-weight: 700; font-size: 16px; margin: 0;'>🎉 ممتاز جداً! لقد أجبتِ على جميع الأسئلة بصورة صحيحة تماماً.</p>";
         }
         
         let inputs = form.getElementsByTagName('input');
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].disabled = true;
         }
+        document.getElementById('studentName').disabled = true;
 
         document.querySelector('.submit-btn').style.display = 'none';
         resultBox.scrollIntoView({ behavior: 'smooth' });
