@@ -1,763 +1,576 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>اختيار من متعدد على الوحدة الأولى (25 سؤال)</title>
-  <style>
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #0f172a;
-      --border: #cbd5e1;
-      --success: #16a34a;
-      --error: #dc2626;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الوحدة الثالثة – البرمجة والذكاء الاصطناعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --border-color: #e5e7eb;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      padding-top: 80px;
-      padding-bottom: 40px;
-      display: flex;
-      justify-content: center;
-    }
+        .container {
+            max-width: 820px;
+            margin: 30px auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
 
-    /* العداد الزمني العائم */
-    .timer-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: #ffffff;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 25px;
-      z-index: 1000;
-      border-bottom: 3px solid var(--primary);
-    }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
 
-    .timer-title {
-      font-weight: bold;
-      font-size: 1.05rem;
-    }
+        h1 {
+            color: var(--primary);
+            font-size: 26px;
+            margin: 0 0 10px 0;
+            font-weight: 900;
+        }
 
-    .timer-clock {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: var(--primary);
-      background: #eff6ff;
-      padding: 6px 16px;
-      border-radius: 20px;
-      border: 1px solid #bfdbfe;
-      letter-spacing: 1px;
-    }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 500;
+        }
 
-    .timer-clock.danger {
-      color: var(--error);
-      background: #fef2f2;
-      border-color: #fecaca;
-      animation: pulse 1s infinite;
-    }
+        #timer-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            border: 1px solid #fcd34d;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 10px;
+            margin-bottom: 35px;
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
 
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.6; }
-      100% { opacity: 1; }
-    }
+        h3.section-title {
+            background-color: #e0e7ff;
+            color: #312e81;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 17px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
 
-    .quiz-container {
-      width: 100%;
-      max-width: 850px;
-      background: var(--card-bg);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+        .question {
+            background: #fafafa;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
 
-    .header {
-      text-align: center;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 20px;
-      margin-bottom: 25px;
-    }
+        .question p {
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #111827;
+        }
 
-    .header h1 {
-      color: var(--primary);
-      font-size: 1.6rem;
-      margin-bottom: 8px;
-    }
+        label {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+            font-size: 15px;
+        }
 
-    .form-group {
-      margin-bottom: 25px;
-    }
+        label:hover {
+            background-color: #f8fafc;
+            border-color: var(--primary);
+        }
 
-    label.field-label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
+        input[type="radio"] {
+            margin-left: 12px;
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+        }
 
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
+        button.submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+        }
 
-    input[type="text"]:focus {
-      border-color: var(--primary);
-    }
+        button.submit-btn:hover {
+            background-color: #059669;
+        }
 
-    .question-card {
-      background: #fafafa;
-      border: 1px solid var(--border);
-      padding: 18px 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
+        #result-box {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #d1fae5;
+            border: 1px solid #a7f3d0;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #065f46;
+        }
 
-    .question-title {
-      font-weight: bold;
-      font-size: 1.05rem;
-      margin-bottom: 12px;
-      line-height: 1.6;
-      color: #1e293b;
-    }
+        #review-box {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background-color: #fee2e2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            color: #991b1b;
+        }
 
-    .option {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 10px;
-      padding: 10px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.98rem;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      transition: background 0.2s;
-      line-height: 1.5;
-    }
+        #review-box h3 {
+            margin-top: 0;
+            color: #991b1b;
+            border-bottom: 2px solid #fca5a5;
+            padding-bottom: 12px;
+            font-size: 18px;
+        }
 
-    .option:hover {
-      background: #f1f5f9;
-    }
+        .wrong-item {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #f87171;
+            font-size: 14px;
+        }
 
-    .option input[type="radio"] {
-      margin-left: 12px;
-      margin-top: 3px;
-      accent-color: var(--primary);
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
+        .wrong-item p {
+            margin: 0 0 8px 0;
+            font-weight: 700;
+            color: #1f2937;
+        }
 
-    button.submit-btn {
-      width: 100%;
-      padding: 15px;
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.15rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 25px;
-      transition: background-color 0.2s;
-    }
+        .explanation {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--border-color);
+            display: none;
+        }
 
-    button.submit-btn:hover {
-      background-color: var(--primary-dark);
-    }
-
-    button.submit-btn:disabled {
-      background-color: #94a3b8;
-      cursor: not-allowed;
-    }
-
-    /* كارت نتيجة الاختبار */
-    .result-card {
-      display: none;
-      text-align: center;
-      padding: 30px;
-      background: #f0fdf4;
-      border: 2px solid var(--success);
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-
-    .result-card.fail {
-      background: #fef2f2;
-      border-color: var(--error);
-    }
-
-    .result-title {
-      font-size: 1.8rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .result-score {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: var(--primary);
-      margin: 15px 0;
-    }
-
-    .result-details {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-    }
-
-    .review-list {
-      text-align: right;
-      margin-top: 20px;
-      border-top: 1px solid #cbd5e1;
-      padding-top: 15px;
-    }
-
-    .review-item {
-      padding: 14px;
-      margin-bottom: 12px;
-      border-radius: 6px;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .review-item.correct {
-      background: #dcfce7;
-      color: #15803d;
-      border-right: 5px solid var(--success);
-    }
-
-    .review-item.incorrect {
-      background: #fee2e2;
-      color: #b91c1c;
-      border-right: 5px solid var(--error);
-    }
-  </style>
+        .footer-credit {
+            text-align: center;
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- شريط العداد الزمني -->
-  <div class="timer-bar">
-    <span class="timer-title">⏱️ الوقت المتبقي للاختبار:</span>
-    <span id="timerClock" class="timer-clock">10:00</span>
-  </div>
+<div class="container">
+    <header>
+        <h1>اختبار الوحدة الثالثة – البرمجة والذكاء الاصطناعي</h1>
+       
+    </header>
 
-  <div class="quiz-container">
-    <div class="header">
-      <h1>اختيار من متعدد على الوحدة الأولى برمجة تانية ثانوى</h1>
-      <p>زمن الاختبار: 10 دقائق | عدد الأسئلة: 25 سؤال اختيار من متعدد (25 درجة)</p>
-    </div>
-
-    <!-- كارت النتيجة النهائية -->
-    <div id="resultCard" class="result-card">
-      <div id="resultTitle" class="result-title">تم إنهاء الاختبار بنجاح!</div>
-      <div id="resultScore" class="result-score">0 / 25</div>
-      <div id="resultDetails" class="result-details">النسبة المئوية: 0%</div>
-      <div id="reviewContainer" class="review-list"></div>
+    <div id="timer-box">
+        <span>⏱️ الوقت المتبقي للاختبار:</span>
+        <span id="time" style="font-family: monospace; font-size: 20px;">20:00</span>
     </div>
 
     <form id="quizForm">
-      <!-- بيانات الطالب -->
-      <div class="form-group">
-        <label class="field-label" for="studentName">الاسم بالكامل:</label>
-        <input type="text" id="studentName" name="studentName" placeholder="أدخل اسمك الثلاثي" required>
-      </div>
-
-      <!-- حاوية الأسئلة الـ 25 -->
-      <div id="questionsContainer"></div>
-
-      <button type="submit" id="submitBtn" class="submit-btn">إرسال الاختبار وإنهاء التقييم</button>
-    </form>
-  </div>
-
-  <script>
-    // ⚠️ استبدل النص التالي بين التنصيص برابط Web App الخاص بك من Google Apps Script
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5dj9JMisGLASm7uDrBlH47Uc2_jZybQQO4gWIVBaiulaUtW_Jhr90694eP57Sryyi/exec";
-
-    // =========================================================
-    // 📝 قائمة الأسئلة الـ 25 بالكامل مع الخيارات والإجابات النموذجية
-    // =========================================================
-    let questionsData = [
-      {
-        id: 1,
-        title: "أي مما يلي يُعد الوصف الأدق لطبيعة \"قانون مور\" (Moore's Law) والحدود التي يواجهها حالياً؟",
-        options: [
-          "قانون فيزيائي حتمي يفرض مضاعفة سرعة المعالجات كل عامين، ويتوقف بسبب تكلفة التصنيع.",
-          "ملاحظة تجريبية تنص على مضاعفة عدد الترانسزيستورات كل عامين تقريباً، وتواجه تباطؤاً بسبب عقبات هندسية وفيزيائية كظاهرة التسرب والأنفاق الكمومية.",
-          "قاعدة رياضية تؤكد أن الحوسبة الكمومية ستستبدل الحواسيب التقليدية بالكامل في جميع أنواع الحسابات.",
-          "قانون اقتصادي ينص على انخفاض أسعار الهواتف الذكية بالنصف كل سنتين مع انتشار الحوسبة السحابية."
-        ],
-        answer: "ملاحظة تجريبية تنص على مضاعفة عدد الترانسزيستورات كل عامين تقريباً، وتواجه تباطؤاً بسبب عقبات هندسية وفيزيائية كظاهرة التسرب والأنفاق الكمومية."
-      },
-      {
-        id: 2,
-        title: "ترغب إحدى شركات السيارات الذكية في اتخاذ قرارات قيادة فورية أثناء السير دون الاعتماد على شبكة الإنترنت لتفادي أخطار التأخير في الاستجابة (Latency). ما التقنية الأنسب التي تعتمد عليها المركبة حاسوبياً؟",
-        options: [
-          "الحوسبة السحابية المركزية (Cloud Computing).",
-          "الحوسبة الكمومية (Quantum Computing).",
-          "الحوسبة الطرفية (Edge Computing) لمعالجة البيانات محلياً على الجهاز.",
-          "الواقع الافتراضي الكامل (Virtual Reality)."
-        ],
-        answer: "الحوسبة الطرفية (Edge Computing) لمعالجة البيانات محلياً على الجهاز."
-      },
-      {
-        id: 3,
-        title: "ما الترتيب الزمني الصحيح للتحولات والتطورات التقنية في تاريخ تكنولوجيا المعلومات بدءاً من الأقدم إلى الأحدث؟",
-        options: [
-          "الحواسيب الشخصية (PCs) ⬅ ظهور الهواتف الذكية ⬅ ظهور الويب والتسويق التجاري ⬅ انتشار الحوسبة السحابية.",
-          "ظهور الحواسيب الإلكترونية (ENIAC) ⬅ ظهور الحواسيب الشخصية ⬅ إتاحة الإنترنت للاستخدام التجاري ⬅ انتشار الهواتف الذكية ⬅ انتشار الحوسبة السحابية.",
-          "التسويق الإلكتروني ⬅ ظهور الصمامات المفرغة ⬅ شبكات التواصل الاجتماعي ⬅ ظهور الهواتف الذكية.",
-          "الحوسبة السحابية ⬅ ظهور الحواسيب الشخصية ⬅ ظهور ENIAC ⬅ الدفع غير النقدي عبر QR."
-        ],
-        answer: "ظهور الحواسيب الإلكترونية (ENIAC) ⬅ ظهور الحواسيب الشخصية ⬅ إتاحة الإنترنت للاستخدام التجاري ⬅ انتشار الهواتف الذكية ⬅ انتشار الحوسبة السحابية."
-      },
-      {
-        id: 4,
-        title: "ما الفرق الجوهري بين \"الواقع المعزز (AR)\" و\"الواقع الافتراضي (VR)\"؟",
-        options: [
-          "الواقع المعزز يضع المستخدم بالكامل في بيئة افتراضية مولدة حاسوبياً، بينما الواقع الافتراضي يضيف عناصر رقمية للعالم الحقيقي.",
-          "الواقع المعزز يضيف عناصر أو معلومات رقمية فوق مشهد من العالم الحقيقي، بينما الواقع الافتراضي يضع المستخدم داخل بيئة افتراضية مولدة حاسوبياً بالكامل.",
-          "الواقع المعزز يعتمد حصرياً على الحوسبة الكمومية، بينما الواقع الافتراضي يعتمد على الحوسبة الطرفية.",
-          "لا يوجد فرق بينهما سوى أن VR يُستخدم في الهواتف الذكية بينما AR يُستخدم في نظارات الرأس فقط."
-        ],
-        answer: "الواقع المعزز يضيف عناصر أو معلومات رقمية فوق مشهد من العالم الحقيقي، بينما الواقع الافتراضي يضع المستخدم داخل بيئة افتراضية مولدة حاسوبياً بالكامل."
-      },
-      {
-        id: 5,
-        title: "تُعرف \"الحوسبة الكمومية\" (Quantum Computing) بأنها نهج يستفيد من خصائص ميكانيكا الكم كالكيوِبت (Qubit) والتراكب. ما النتيجة الدقيقة لاستخدامها مقارنة بالحواسيب التقليدية؟",
-        options: [
-          "تسريع جميع أنواع الحسابات والمعالجات دون استثناء بنسبة 100%.",
-          "تقديم بديل مباشر وشامل لجميع الحواسيب التقليدية والهواتف الذكية.",
-          "توفير تفوق حاسوبي واختراق في فئات محددة وخاصة من المسائل والمعادلات، لكنها لا تُسرّع كافة الحسابات ولا تُعد بديلاً عاماً للجميع.",
-          "إلغاء الحاجة لبيانات التدريب والشبكات العصبية في الذكاء الاصطناعي."
-        ],
-        answer: "توفير تفوق حاسوبي واختراق في فئات محددة وخاصة من المسائل والمعادلات، لكنها لا تُسرّع كافة الحسابات ولا تُعد بديلاً عاماً للجميع."
-      },
-      {
-        id: 6,
-        title: "ما التحول الاجتماعي والتقني الذي يتيح إجراء المعاملات والمدفوعات المالية وشراء السلع عبر تطبيقات الهاتف أو رموز QR دون استخدام النقود الورقية والمعدنية؟",
-        options: [
-          "التجارة الإلكترونية فقط (E-commerce).",
-          "العمل عن بُعد (Remote Work).",
-          "الدفع غير النقدي (Cashless Payment).",
-          "شبكات التواصل الاجتماعي (SNS)."
-        ],
-        answer: "الدفع غير النقدي (Cashless Payment)."
-      },
-      {
-        id: 7,
-        title: "أي العبارات التالية تصف بدقة العلاقة المفهومية والتسلسلية بين الذكاء الاصطناعي (AI)، والتعلم الآلي (ML)، والتعلم العميق (DL)، والذكاء الاصطناعي التوليدي (GenAI)؟",
-        options: [
-          "GenAI هو المجال الأوسع الذي يحتوي داخل طياته DL، ثم ML، وأخيراً AI.",
-          "AI هو المجال العام، ويقع ML ضمنه كفرع يتعلم الأنماط من البيانات، وDL هو نوع متقدم من ML يستخدم شبكات عصبية متعددة الطبقات، بينما GenAI يعتمد على DL لتوليد محتوى جديد.",
-          "ML و DL تقنيتان منفصلتان تماماً ولا يوجد بينهما أي تداخل أو احتواء.",
-          "GenAI ينشئ محتوى جديداً دون الحاجة لاستخدام أساليب التعلم العميق أو بيانات التدريب."
-        ],
-        answer: "AI هو المجال العام، ويقع ML ضمنه كفرع يتعلم الأنماط من البيانات، وDL هو نوع متقدم من ML يستخدم شبكات عصبية متعددة الطبقات، بينما GenAI يعتمد على DL لتوليد محتوى جديد."
-      },
-      {
-        id: 8,
-        title: "عندما يقوم نظام ذكاء اصطناعي توليدي برسم صورة جديدة غير موجودة سابقاً أو كتابة نص بناءً على مطالبة (Prompt)، ما الذي يعتمد عليه النظام بالأساس؟",
-        options: [
-          "اتباع قواعد برمجية صريحة ومباشرة أُدخلت له يدوياً من المبرمجين.",
-          "البحث المباشر في المحرك ونقل صورة جاهزة ومطابقتها حرفياً من الإنترنت.",
-          "الاستناد إلى النماذج والأنماط التي تعلمها من بيانات التدريب الضخمة باستخدام نماذج التعلم العميق.",
-          "الوصول المباشر إلى الذاكرة البشرية واستخراج الأفكار منها."
-        ],
-        answer: "الاستناد إلى النماذج والأنماط التي تعلمها من بيانات التدريب الضخمة باستخدام نماذج التعلم العميق."
-      },
-      {
-        id: 9,
-        title: "ما المقصود بظاهرة \"الهلوسة\" (Hallucination) في نماذج الذكاء الاصطناعي التوليدي؟",
-        options: [
-          "توقف النظام عن العمل نتيجة كثرة الطلبات والمعالجات الضخمة.",
-          "إنتاج النظام لمخرجات ونصوص تبدو للوهلة الأولى معقولة ومصاغة بثقة لكنها في الحقيقة غير صحيحة أو غير مدعومة بالحقائق.",
-          "قدرة النظام على التنبؤ بالأحداث المستقبلية بدقة متناهية.",
-          "تحيز النظام ضد فئة معينة من المستخدمين بسبب بيانات التدريب."
-        ],
-        answer: "إنتاج النظام لمخرجات ونصوص تبدو للوهلة الأولى معقولة ومصاغة بثقة لكنها في الحقيقة غير صحيحة أو غير مدعومة بالحقائق."
-      },
-      {
-        id: 10,
-        title: "تتكون \"الشبكة العصبية الاصطناعية\" (ANN) من وحدات ترابط معالجة منسقة في طبقات، وتتميز بـ:",
-        options: [
-          "ثبات أوزان الترابط وعدم تغيرها إطلاقاً أثناء مرحلة التدريب.",
-          "استلهام فكرتها من العصبونات البيولوجية، وتغير أوزان ترابطها أثناء التدريب لتعلم الأنماط وإصدار أحكام معقدة.",
-          "قدرتها على اتخاذ قرارات أخلاقية مستقلة دون الحاجة لتقييم بشري.",
-          "اعتمادها على طبقة واحدة فقط دائماً لمعالجة كافة أنواع الصور والمعضلات."
-        ],
-        answer: "استلهام فكرتها من العصبونات البيولوجية، وتغير أوزان ترابطها أثناء التدريب لتعلم الأنماط وإصدار أحكام معقدة."
-      },
-      {
-        id: 11,
-        title: "أي الممارسات التالية تُعد مثالاً تطبيقياً يندرج تحت \"التعلم الآلي (ML)\" بالأساس لتصنيف البيانات والبحث عن أنماط دون توليد محتوى جديد؟",
-        options: [
-          "إنشاء مقطع صوتي ناطق بصوت شخصية شهيرة لم يتحدث به من قبل.",
-          "تصنيف البريد الإلكتروني تلقائياً إلى \"رسائل مرغوبة\" أو \"رسائل مزعجة (Spam)\" بناءً على أنماط الرسائل.",
-          "تأليف رواية خيالية كاملة باستخدام أحد نماذج المحادثة التوليدية.",
-          "توليد تصميم معماري جديد ثلاثي الأبعاد من وصف نصي."
-        ],
-        answer: "تصنيف البريد الإلكتروني تلقائياً إلى \"رسائل مرغوبة\" أو \"رسائل مزعجة (Spam)\" بناءً على أنماط الرسائل."
-      },
-      {
-        id: 12,
-        title: "لماذا يتطلب \"التعلم العميق (DL)\" قدرات حوسبة عالية جداً وبيانات ضخمة مقارنة بالتعلم الآلي التقليدي؟",
-        options: [
-          "لأنه يعتمد على القواعد المبرمجة صراحة والتي تتطلب آلاف السطور البرمجية.",
-          "لأنه يستخدم شبكات عصبية اصطناعية متعددة الطبقات لتعلم تمثيلات وأنماط معقدة للغاية من كميات هائلة من البيانات.",
-          "لأنه لا يتلقى أي تدريب على البيانات بل يعتمد على المصادفة.",
-          "لأنه يعمل فقط على الحواسيب الكمومية دون الحواسيب الفائقة التقليدية."
-        ],
-        answer: "لأنه يستخدم شبكات عصبية اصطناعية متعددة الطبقات لتعلم تمثيلات وأنماط معقدة للغاية من كميات هائلة من البيانات."
-      },
-      {
-        id: 13,
-        title: "تُستخدم \"أنظمة التوصية\" (Recommendation Systems) في منصات مثل يوتيوب وأمازون. كيف تحدد هذه الأنظمة ما تعرضه للمستخدم؟",
-        options: [
-          "عن طريق عرض أحدث الفيديوهات أو المنتجات المضافة للموقع بشكل عشوائي للجميع.",
-          "من خلال تحليل بيانات السلوك السابق للمستخدم وتفضيلاته للتنبؤ بما قد يناسبه وعرضه.",
-          "بواسطة تدخل بشري مباشر يحدد لكل مستخدم قائمته الخاصة يومياً.",
-          "عبر إجبار المستخدم على ملء استبيان ورقي قبل كل عملية مشاهدة أو شراء."
-        ],
-        answer: "من خلال تحليل بيانات السلوك السابق للمستخدم وتفضيلاته للتنبؤ بما قد يناسبه وعرضه."
-      },
-      {
-        id: 14,
-        title: "أي القطاعات الصناعية التالية يُمارس فيها الذكاء الاصطناعي دوراً حيوياً في \"التنبؤ بموعد الحصاد والكشف عن الآفات والأمراض\"؟",
-        options: [
-          "الخدمات اللوجستية (Logistics).",
-          "الرعاية الصحية (Healthcare).",
-          "الزراعة (Agriculture).",
-          "التصنيع (Manufacturing)."
-        ],
-        answer: "الزراعة (Agriculture)."
-      },
-      {
-        id: 15,
-        title: "يبرع الذكاء الاصطناعي في وظائف محددة، ولكنه يفتقر إلى قدرات أُخرى تجعل العنصر البشري ضرورياً. ما الصياغة الدقيقة لتوزيع الأدوار بينهما؟",
-        options: [
-          "يبرع الذكاء الاصطناعي في اتخاذ القرارات الأخلاقية النهائية، بينما يحتاج البشر لإيجاد الأنماط في البيانات.",
-          "يبرع الذكاء الاصطناعي في إيجاد الأنماط وتصنيف البيانات الضخمة، بينما يتطلب الأمر حكماً بشرياً في الأخلاق والخصوصية واتخاذ القرارات ذات المسؤولية.",
-          "يبرع الذكاء الاصطناعي في تحمل المساءلة القانونية، بينما يقتصر دور البشر على إدخال الشفرات البرمجية.",
-          "لا يوجد أي فارق في الإمكانيات بين الحكم البشري ومخرجات الخوارزميات."
-        ],
-        answer: "يبرع الذكاء الاصطناعي في إيجاد الأنماط وتصنيف البيانات الضخمة، بينما يتطلب الأمر حكماً بشرياً في الأخلاق والخصوصية واتخاذ القرارات ذات المسؤولية."
-      },
-      {
-        id: 16,
-        title: "ما هي \"مشكلة الصندوق الأسود\" (Black Box Problem) في تطبيقات الذكاء الاصطناعي؟",
-        options: [
-          "توقف شاشة الجهاز وتحولها للون الأسود عند التعرض لهجوم سيبراني.",
-          "تلف وحدات التخزين المركزية للسيرفرات الحسابية في السحابة.",
-          "صعوبة أو عدم وضوح كيفية وصول نظام الذكاء الاصطناعي إلى قرار أو حكم معين من بين البيانات.",
-          "عدم قدرة الكاميرات على الكشف عن الوجوه في الإضاءة الخافتة."
-        ],
-        answer: "صعوبة أو عدم وضوح كيفية وصول نظام الذكاء الاصطناعي إلى قرار أو حكم معين من بين البيانات."
-      },
-      {
-        id: 17,
-        title: "يستعين الأطباء بأنظمة الذكاء الاصطناعي لفحص الصور الشعاعية (الأشعة السينية) للكشف عن الأمراض. ما التصرف الصحيح الموصى به طبياً وأخلاقياً؟",
-        options: [
-          "الاعتماد الكلي والنهائي على تشخيص الذكاء الاصطناعي دون الحاجة لمراجعة الطبيب.",
-          "استخدام الذكاء الاصطناعي كأداة مساعدة للكشف عن الأنماط التي قد تفوت البشر، مع ضرورة تأكيد التشخيص النهائي من قِبل طبيب بشري.",
-          "إلغاء استخدام الذكاء الاصطناعي تماماً لأنه لا يمكنه قراءة الصور الطبقية.",
-          "ترك خيار التشخيص النهائي للمريض بناءً على التقرير الخوارزمي الصادر."
-        ],
-        answer: "استخدام الذكاء الاصطناعي كأداة مساعدة للكشف عن الأنماط التي قد تفوت البشر، مع ضرورة تأكيد التشخيص النهائي من قِبل طبيب بشري."
-      },
-      {
-        id: 18,
-        title: "تقنية \"الصيانة التنبؤية\" (Predictive Maintenance) المستخدمة في خطوط الإنتاج والمصانع تهدف بالأساس إلى:",
-        options: [
-          "التعرف على وجوه العمال أثناء الدخول والخروج من المصنع.",
-          "التنبؤ بأعطال الآلات والمعدات قبل وقوعها بناءً على تحليل البيانات والأنماط.",
-          "ترجمة أدلة التشغيل للآلات من اللغات الأجنبية تلقائياً.",
-          "تقليل أجور العمالة من خلال الاستغناء عن قسم الهواتف."
-        ],
-        answer: "التنبؤ بأعطال الآلات والمعدات قبل وقوعها بناءً على تحليل البيانات والأنماط."
-      },
-      {
-        id: 19,
-        title: "ينشأ \"التحيز الخوارزمي\" (Algorithmic Bias) في أنظمة الذكاء الاصطناعي نتيجة لعدة أسباب، باستثناء:",
-        options: [
-          "احتواء بيانات التدريب على نزعات تمييزية أو عدم تمثيلها لجميع الفئات بشكل كافٍ.",
-          "طريقة تصميم النظام أو طريقة استخدامه والسياق البشري والاجتماعي.",
-          "سرعة معالجة المعالج الحسابي للبيانات داخل الشريحة.",
-          "اختيار متغيرات غير مناسبة أو الاعتماد على متغير بديل يمثل سمة محمية بشكل غير مباشر."
-        ],
-        answer: "سرعة معالجة المعالج الحسابي للبيانات داخل الشريحة."
-      },
-      {
-        id: 20,
-        title: "قامت إحدى المؤسسات باستخدام نظام ذكاء اصطناعي لفرز طلبات التوظيف، فلاحظت أن النظام يستبعد المتقدمين من فئة معينة بانتظام رغم تكافئ مؤهلاتهم. أي مبدأ من المبادئ الأخلاقية الأربعة قد تم انتهاكه بشكل مباشر؟",
-        options: [
-          "مبدأ الخصوصية وحماية البيانات.",
-          "مبدأ العدالة (عدم التمييز ظلماً ضد أي شخص أو مجموعة).",
-          "مبدأ الصيانة التنبؤية.",
-          "مبدأ الاتصال المباشر."
-        ],
-        answer: "مبدأ العدالة (عدم التمييز ظلماً ضد أي شخص أو مجموعة)."
-      },
-      {
-        id: 21,
-        title: "ما المقصود بـ \"الذكاء الاصطناعي القابل للتفسير\" (Explainable AI - XAI) وما أهميته الأخلاقية؟",
-        options: [
-          "تقنية تتيح للنظام ترجمة النصوص من لغة إلى أخرى بسهولة.",
-          "تقنيات تتيح للبشر فهم أسباب وكيفية اتخاذ الذكاء الاصطناعي لقرار أو حكم معين، للحد من مشكلة الصندوق الأسود وتمكين الشفافية.",
-          "برامج تدريبية لتعليم الطلاب كيفية كتابة الأكواد البرمجية للذكاء الاصطناعي.",
-          "نظام يقوم بتوليد صور ثلاثية الأبعاد لشرح الدروس العلمية."
-        ],
-        answer: "تقنيات تتيح للبشر فهم أسباب وكيفية اتخاذ الذكاء الاصطناعي لقرار أو حكم معين، للحد من مشكلة الصندوق الأسود وتمكين الشفافية."
-      },
-      {
-        id: 22,
-        title: "ينص مبدأ \"المساءلة\" (Accountability) في أخلاقيات الذكاء الاصطناعي على:",
-        options: [
-          "معاقبة نظام الذكاء الاصطناعي وحذفه فوراً عند حدوث خطأ حاسوبي.",
-          "تحديد الجهات والأفراد المسؤولين عن النظام وقراراته وآثاره، وإمكانية محاسبتهم وفق أدوارهم (سواء المطور أو المشغل أو المؤسسة).",
-          "إجبار جميع الشركات على نشر الشفرة البرمجية مجاناً للجميع.",
-          "منع استخدام البيانات الشخصية في أي تطبيق تجاري."
-        ],
-        answer: "تحديد الجهات والأفراد المسؤولين عن النظام وقراراته وآثاره، وإمكانية محاسبتهم وفق أدوارهم (سواء المطور أو المشغل أو المؤسسة)."
-      },
-      {
-        id: 23,
-        title: "أعدت إحدى المدارس نظاماً يعتمد على كاميرات التعرف على الوجوه لتسجيل حضور الطلاب تلقائياً عند البوابة، لكن أبدت بعض الأسر قلقها بشأن جمع صور أبنائهم وتخزينها. أي مبدأ أخلاقي يرتبط بهذه المخاوف بصفة رئيسية؟",
-        options: [
-          "مبدأ العدالة.",
-          "مبدأ الخصوصية وحماية البيانات (التعامل المناسب مع المعلومات الشخصية وحمايتها).",
-          "مبدأ الهلوسة.",
-          "مبدأ السرعة الحاسوبية."
-        ],
-        answer: "مبدأ الخصوصية وحماية البيانات (التعامل المناسب مع المعلومات الشخصية وحمايتها)."
-      },
-      {
-        id: 24,
-        title: "أي من الخيارات التالية يُعد الممارسة الأكثر فعالية للحد من التحيز الخوارزمي قبل نشر نظام الذكاء الاصطناعي؟",
-        options: [
-          "زيادة عدد طبقات الشبكة العصبية دون تغيير البيانات.",
-          "فحص بيانات التدريب للتأكد من تنوعها وتمثيلها العادل، واختبار نتائج النظام على فئات مختلفة لمعالجة أي تحيز.",
-          "الاعتماد على الحوسبة الطرفية بدلاً من الحوسبة السحابية.",
-          "التوقف عن استخدام الذكاء الاصطناعي في كافة التطبيقات الصناعية."
-        ],
-        answer: "فحص بيانات التدريب للتأكد من تنوعها وتمثيلها العادل، واختبار نتائج النظام على فئات مختلفة لمعالجة أي تحيز."
-      },
-      {
-        id: 25,
-        title: "يقتضي مبدأ \"الشفافية\" (Transparency) في الاستخدام المسؤول للذكاء الاصطناعي:",
-        options: [
-          "عدم الإفصاح عن وجود ذكاء اصطناعي للمستخدمين لتجنب إثارة قلقهم.",
-          "إتاحة معلومات واضحة ومناسبة عن النظام واستخدامه وطريقة اتخاذ القرار وحدوده.",
-          "جعل جميع خوارزميات الذكاء الاصطناعي تعمل بدون بيانات تدريب.",
-          "ضمان ألا يخطئ النظام في التنبؤ إطلاقاً بنسبة 100%."
-        ],
-        answer: "إتاحة معلومات واضحة ومناسبة عن النظام واستخدامه وطريقة اتخاذ القرار وحدوده."
-      }
-    ];
-
-    // 1. دالة التطهير وتوحيد الحروف العربية وتجاهل الهمزات والتشكيل
-    function normalizeArabic(text) {
-      if (!text) return "";
-      return text
-        .toString()
-        .trim()
-        .toLowerCase()
-        .replace(/[أإآ]/g, 'ا')
-        .replace(/ة/g, 'ه')
-        .replace(/ى/g, 'ي')
-        .replace(/[\u064B-\u0652]/g, '');
-    }
-
-    // 2. دالة خلط المصفوفات عشوائياً (Fisher-Yates Shuffle)
-    function shuffleArray(array) {
-      let shuffled = [...array];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      return shuffled;
-    }
-
-    // 3. توليد الأسئلة الـ 25 داخل الصفحة بعد خلط الأسئلة والخيارات
-    function renderQuestions() {
-      const container = document.getElementById('questionsContainer');
-      let html = '';
-
-      questionsData.forEach((q, index) => {
-        // خلط خيارات السؤال نفسه لزيادة العشوائية ومنع الغش
-        const randomizedOptions = shuffleArray(q.options);
-
-        html += `
-          <div class="question-card">
-            <div class="question-title">س${index + 1}: ${q.title}</div>
-            ${randomizedOptions.map(opt => `
-              <label class="option">
-                <input type="radio" name="q${q.id}" value="${opt.replace(/"/g, '&quot;')}" required>
-                <span>${opt}</span>
-              </label>
-            `).join('')}
-          </div>
-        `;
-      });
-
-      container.innerHTML = html;
-    }
-
-    // 4. إعداد العداد الزمني (10 دقائق = 600 ثانية)
-    let timeRemaining = 10 * 60;
-    let timerInterval = null;
-    let isSubmitted = false;
-
-    const timerClock = document.getElementById('timerClock');
-
-    function startTimer() {
-      timerInterval = setInterval(() => {
-        if (timeRemaining <= 0) {
-          clearInterval(timerInterval);
-          alert('انتهى الوقت المخصص للاختبار (10 دقائق)! سيتم تسليم إجاباتك تلقائياً.');
-          autoSubmitQuiz();
-        } else {
-          timeRemaining--;
-          updateTimerDisplay();
-        }
-      }, 1000);
-    }
-
-    function updateTimerDisplay() {
-      const minutes = Math.floor(timeRemaining / 60);
-      const seconds = timeRemaining % 60;
-      timerClock.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-      if (timeRemaining <= 120) { // أخر دقيقتين يتحول للون الأحمر والتنبيه
-        timerClock.classList.add('danger');
-      }
-    }
-
-    // 5. التصحيح التلقائي والمطابقة المرنة
-    function calculateGrade(formData) {
-      let score = 0;
-      let review = [];
-
-      questionsData.forEach(q => {
-        const userAns = formData[`q${q.id}`] || "لم يتم الإجابة";
-        const isCorrect = normalizeArabic(userAns) === normalizeArabic(q.answer);
         
-        if (isCorrect) score++;
+        <!-- أولًا: البنية العامة لتطبيقات الويب -->
+        <h3 class="section-title">أولًا: البنية العامة لتطبيقات الويب (الدرس 3-1)</h3>
 
-        review.push({
-          title: q.title,
-          userAns: userAns,
-          correctAns: q.answer,
-          isCorrect: isCorrect
-        });
-      });
+        <div class="question" data-q="q1" data-title="السؤال 1 (البنية العامة)">
+            <p>1. عند استخدام موقع للتسوق الإلكتروني، أدخل المستخدم اسم منتج في مربع البحث، لكن الموقع عرض نتائج غير مطابقة. أي طبقة تتحمل المسؤولية الأساسية عن معالجة كلمات البحث وتطبيق قواعد البحث؟</p>
+            <label><input type="radio" name="q1" value="A" data-text="أ) الواجهة الأمامية (Frontend)."> أ) الواجهة الأمامية (Frontend).</label>
+            <label><input type="radio" name="q1" value="B" data-text="ب) الواجهة الخلفية (Backend)."> ب) الواجهة الخلفية (Backend).</label>
+            <label><input type="radio" name="q1" value="C" data-text="ج) قاعدة البيانات (Database)."> ج) قاعدة البيانات (Database).</label>
+            <label><input type="radio" name="q1" value="D" data-text="د) متصفح الويب (Browser)."> د) متصفح الويب (Browser).</label>
+            <div class="explanation">التفسير: المعالجة وتطبيق قواعد البحث من مسؤولية الواجهة الخلفية.</div>
+        </div>
 
-      return { score, review };
+        <div class="question" data-q="q2" data-title="السؤال 2 (طبقة البيانات)">
+            <p>2. قام مطور بتصميم صفحة تعرض المنتجات بشكل جيد، وتسمح للمستخدم بإدخال بياناته، ولكن لا يستطيع الموقع الاحتفاظ بمعلومات الطلبات بعد إغلاق الصفحة. ما الجزء الذي يحتاج إلى تطوير بشكل أساسي؟</p>
+            <label><input type="radio" name="q2" value="A" data-text="أ) الواجهة الأمامية."> أ) الواجهة الأمامية.</label>
+            <label><input type="radio" name="q2" value="B" data-text="ب) الواجهة الخلفية فقط."> ب) الواجهة الخلفية فقط.</label>
+            <label><input type="radio" name="q2" value="C" data-text="ج) طبقة البيانات."> ج) طبقة البيانات.</label>
+            <label><input type="radio" name="q2" value="D" data-text="د) شاشة عرض المنتجات."> د) شاشة عرض المنتجات.</label>
+            <div class="explanation">التفسير: حفظ البيانات واسترجاعها من مسؤولية طبقة البيانات.</div>
+        </div>
+
+        <div class="question" data-q="q3" data-title="السؤال 3 (المشكلة في المعالجة)">
+            <p>3. في تطبيق للتواصل الاجتماعي، يستطيع المستخدم مشاهدة المنشورات وكتابة منشور جديد، ولكن لا تظهر المنشورات الجديدة للمستخدمين الآخرين. أي تفسير هو الأكثر منطقية؟</p>
+            <label><input type="radio" name="q3" value="A" data-text="أ) الواجهة الأمامية لا تعرض الألوان بصورة صحيحة."> أ) الواجهة الأمامية لا تعرض الألوان بصورة صحيحة.</label>
+            <label><input type="radio" name="q3" value="B" data-text="ب) قد توجد مشكلة في معالجة الطلبات أو حفظ المنشورات في طبقة البيانات."> ب) قد توجد مشكلة في معالجة الطلبات أو حفظ المنشورات في طبقة البيانات.</label>
+            <label><input type="radio" name="q3" value="C" data-text="ج) حجم شاشة المستخدم غير مناسب."> ج) حجم شاشة المستخدم غير مناسب.</label>
+            <label><input type="radio" name="q3" value="D" data-text="د) المتصفح لا يستطيع عرض الصور."> د) المتصفح لا يستطيع عرض الصور.</label>
+            <div class="explanation">التفسير: المشكلة قد تكون في المعالجة أو حفظ المنشورات.</div>
+        </div>
+
+        <div class="question" data-q="q4" data-title="السؤال 4 (تسلسل الطبقات)">
+            <p>4. عند البحث عن منتج في متجر إلكتروني، ما الترتيب الصحيح لتعاون الطبقات الثلاث؟</p>
+            <label><input type="radio" name="q4" value="A" data-text="أ) قاعدة البيانات تستقبل البحث ← الواجهة الأمامية تعالج الطلب ← الواجهة الخلفية تعرض النتيجة."> أ) قاعدة البيانات تستقبل البحث ← الواجهة الأمامية تعالج الطلب ← الواجهة الخلفية تعرض النتيجة.</label>
+            <label><input type="radio" name="q4" value="B" data-text="ب) الواجهة الخلفية تستقبل كلمات البحث من المستخدم ← قاعدة البيانات تعرض النتائج ← الواجهة الأمامية تخزنها."> ب) الواجهة الخلفية تستقبل كلمات البحث من المستخدم ← قاعدة البيانات تعرض النتائج ← الواجهة الأمامية تخزنها.</label>
+            <label><input type="radio" name="q4" value="C" data-text="ج) الواجهة الأمامية تجمع كلمات البحث وترسلها للخلفية ← الخلفية تطلب البيانات من قاعدة البيانات ← تعود النتائج وتُعرض للمستخدم."> ج) الواجهة الأمامية تجمع كلمات البحث وترسلها للخلفية ← الخلفية تطلب البيانات من قاعدة البيانات ← تعود النتائج وتُعرض للمستخدم.</label>
+            <label><input type="radio" name="q4" value="D" data-text="د) الواجهة الأمامية تبحث داخل قاعدة البيانات مباشرة دون الحاجة إلى الواجهة الخلفية."> د) الواجهة الأمامية تبحث داخل قاعدة البيانات مباشرة دون الحاجة إلى الواجهة الخلفية.</label>
+            <div class="explanation">التفسير: تسلسل الطلب والاستجابة يبدأ من الواجهة الأمامية ثم الخلفية فقاعدة البيانات.</div>
+        </div>
+
+        <div class="question" data-q="q5" data-title="السؤال 5 (توزيع المسؤوليات)">
+            <p>5. قررت عيادة إنشاء تطبيق ويب لحجز المواعيد. أي توزيع للمسؤوليات هو الأنسب؟</p>
+            <label><input type="radio" name="q5" value="A" data-text="أ) الواجهة الأمامية تخزن الزيارات السابقة، والخلفية تعرض نموذج الحجز، وقاعدة البيانات تتحقق من المواعيد."> أ) الواجهة الأمامية تخزن الزيارات السابقة، والخلفية تعرض نموذج الحجز، وقاعدة البيانات تتحقق من المواعيد.</label>
+            <label><input type="radio" name="q5" value="B" data-text="ب) الواجهة الأمامية تعرض نموذج الحجز، والخلفية تتحقق من المواعيد المتاحة، وقاعدة البيانات تخزن الزيارات السابقة."> ب) الواجهة الأمامية تعرض نموذج الحجز، والخلفية تتحقق من المواعيد المتاحة، وقاعدة البيانات تخزن الزيارات السابقة.</label>
+            <label><input type="radio" name="q5" value="C" data-text="ج) الواجهة الأمامية تنفذ جميع المهام، وقاعدة البيانات تعرض النتائج."> ج) الواجهة الأمامية تنفذ جميع المهام، وقاعدة البيانات تعرض النتائج.</label>
+            <label><input type="radio" name="q5" value="D" data-text="د) قاعدة البيانات تستقبل مدخلات المستخدم وتعرض نموذج الحجز مباشرة."> د) قاعدة البيانات تستقبل مدخلات المستخدم وتعرض نموذج الحجز مباشرة.</label>
+            <div class="explanation">التفسير: كل طبقة تؤدي دورها المناسب في الحجز والتحقق والتخزين.</div>
+        </div>
+
+        <div class="question" data-q="q6" data-title="السؤال 6 (فصل المسؤوليات)">
+            <p>6. لماذا يُفضل فصل تطبيق الويب إلى واجهة أمامية وواجهة خلفية وطبقة بيانات؟</p>
+            <label><input type="radio" name="q6" value="A" data-text="أ) لجعل جميع أجزاء التطبيق تؤدي الوظيفة نفسها."> أ) لجعل جميع أجزاء التطبيق تؤدي الوظيفة نفسها.</label>
+            <label><input type="radio" name="q6" value="B" data-text="ب) لمنع المستخدم من التفاعل مع التطبيق."> ب) لمنع المستخدم من التفاعل مع التطبيق.</label>
+            <label><input type="radio" name="q6" value="C" data-text="ج) لتنظيم المسؤوليات بحيث تتولى كل طبقة مهام محددة وتتعاون مع الطبقات الأخرى."> ج) لتنظيم المسؤوليات بحيث تتولى كل طبقة مهام محددة وتتعاون مع الطبقات الأخرى.</label>
+            <label><input type="radio" name="q6" value="D" data-text="د) للاستغناء عن الحاجة إلى تخزين البيانات."> د) للاستغناء عن الحاجة إلى تخزين البيانات.</label>
+            <div class="explanation">التفسير: فصل المسؤوليات ينظم العمل والتعاون بين الطبقات.</div>
+        </div>
+
+        <!-- ثانيًا: طرق اتصال تطبيقات الويب -->
+        <h3 class="section-title">ثانيًا: طرق اتصال تطبيقات الويب (الدرس 3-2)</h3>
+
+        <div class="question" data-q="q7" data-title="السؤال 7 (العميل)">
+            <p>7. يستخدم طالب متصفح الويب لطلب عرض جدول الحصص من خادم المدرسة. في هذا الموقف، ما الذي يمثل العميل (Client)؟</p>
+            <label><input type="radio" name="q7" value="A" data-text="أ) خادم المدرسة."> أ) خادم المدرسة.</label>
+            <label><input type="radio" name="q7" value="B" data-text="ب) قاعدة بيانات المدرسة."> ب) قاعدة بيانات المدرسة.</label>
+            <label><input type="radio" name="q7" value="C" data-text="ج) متصفح الويب الذي يرسل الطلب."> ج) متصفح الويب الذي يرسل الطلب.</label>
+            <label><input type="radio" name="q7" value="D" data-text="د) ملف جدول الحصص المخزن."> د) ملف جدول الحصص المخزن.</label>
+            <div class="explanation">التفسير: المتصفح هو العميل الذي يرسل الطلب.</div>
+        </div>
+
+        <div class="question" data-q="q8" data-title="السؤال 8 (طريقة POST)">
+            <p>8. يريد طالب تسجيل الدخول إلى منصة تعليمية عن طريق إرسال اسم المستخدم وكلمة المرور إلى الخادم. أي طريقة طلب HTTP هي الأنسب عادةً؟</p>
+            <label><input type="radio" name="q8" value="A" data-text="أ) GET لأنها مخصصة لإرسال بيانات النماذج."> أ) GET لأنها مخصصة لإرسال بيانات النماذج.</label>
+            <label><input type="radio" name="q8" value="B" data-text="ب) POST لأنها تُستخدم عادةً لإرسال البيانات ليعالجها الخادم."> ب) POST لأنها تُستخدم عادةً لإرسال البيانات ليعالجها الخادم.</label>
+            <label><input type="radio" name="q8" value="C" data-text="ج) HTTPS لأنها طريقة طلب لإرسال البيانات."> ج) HTTPS لأنها طريقة طلب لإرسال البيانات.</label>
+            <label><input type="radio" name="q8" value="D" data-text="د) JSON لأنها بروتوكول لإرسال كلمات المرور."> د) JSON لأنها بروتوكول لإرسال كلمات المرور.</label>
+            <div class="explanation">التفسير: POST تُستخدم لإرسال بيانات النماذج بأمان أكثر لمعالجتها.</div>
+        </div>
+
+        <div class="question" data-q="q9" data-title="السؤال 9 (رمز 404)">
+            <p>9. طلب المستخدم صفحة ويب من الخادم، وأعاد الخادم رمز الحالة HTTP 404. ما التفسير الصحيح للموقف؟</p>
+            <label><input type="radio" name="q9" value="A" data-text="أ) تمت معالجة الطلب بنجاح."> أ) تمت معالجة الطلب بنجاح.</label>
+            <label><input type="radio" name="q9" value="B" data-text="ب) حدث خطأ داخلي في الخادم بالضرورة."> ب) حدث خطأ داخلي في الخادم بالضرورة.</label>
+            <label><input type="radio" name="q9" value="C" data-text="ج) المورد المطلوب غير موجود بهذا العنوان."> ج) المورد المطلوب غير موجود بهذا العنوان.</label>
+            <label><input type="radio" name="q9" value="D" data-text="د) الاتصال أصبح مشفرًا بنجاح."> د) الاتصال أصبح مشفرًا بنجاح.</label>
+            <div class="explanation">التفسير: 404 تعني أن المورد غير موجود بهذا العنوان.</div>
+        </div>
+
+        <div class="question" data-q="q10" data-title="السؤال 10 (رمز 500)">
+            <p>10. حاول المستخدم فتح صفحة على موقع إلكتروني، وأعاد الخادم رمز الحالة 500. أي استنتاج يمكن الوصول إليه؟</p>
+            <label><input type="radio" name="q10" value="A" data-text="أ) الصفحة المطلوبة غير موجودة حتمًا."> أ) الصفحة المطلوبة غير موجودة حتمًا.</label>
+            <label><input type="radio" name="q10" value="B" data-text="ب) حدث خطأ داخلي في الخادم منعه من إكمال الطلب."> ب) حدث خطأ داخلي في الخادم منعه من إكمال الطلب.</label>
+            <label><input type="radio" name="q10" value="C" data-text="ج) تمت معالجة الطلب بنجاح."> ج) تمت معالجة الطلب بنجاح.</label>
+            <label><input type="radio" name="q10" value="D" data-text="د) المستخدم أدخل عنوان بريد إلكتروني غير صحيح بالضرورة."> د) المستخدم أدخل عنوان بريد إلكتروني غير صحيح بالضرورة.</label>
+            <div class="explanation">التفسير: 500 يشير إلى خطأ داخلي في الخادم.</div>
+        </div>
+
+        <div class="question" data-q="q11" data-title="السؤال 11 (HTTPS)">
+            <p>11. عند إدخال بيانات تسجيل الدخول في موقع يستخدم HTTP عاديًا، ما الخطر الذي يحاول HTTPS تقليله عند استخدامه بدلًا منه؟</p>
+            <label><input type="radio" name="q11" value="A" data-text="أ) زيادة حجم الشاشة المستخدمة."> أ) زيادة حجم الشاشة المستخدمة.</label>
+            <label><input type="radio" name="q11" value="B" data-text="ب) منع المستخدم من إرسال البيانات."> ب) منع المستخدم من إرسال البيانات.</label>
+            <label><input type="radio" name="q11" value="C" data-text="ج) حماية سرية الاتصال وسلامته ومصادقة الخادم باستخدام TLS."> ج) حماية سرية الاتصال وسلامته ومصادقة الخادم باستخدام TLS.</label>
+            <label><input type="radio" name="q11" value="D" data-text="د) تحويل بيانات المستخدم إلى صور."> د) تحويل بيانات المستخدم إلى صور.</label>
+            <div class="explanation">التفسير: HTTPS يستخدم بروتوكول TLS لتشفير وحماية البيانات.</div>
+        </div>
+
+        <div class="question" data-q="q12" data-title="السؤال 12 (API)">
+            <p>12. يريد تطبيق الطقس الحصول على توقعات الطقس من خدمة خارجية. ما الدور الأساسي لواجهة برمجة التطبيقات (API) في هذا الموقف؟</p>
+            <label><input type="radio" name="q12" value="A" data-text="أ) تغيير ألوان واجهة التطبيق."> أ) تغيير ألوان واجهة التطبيق.</label>
+            <label><input type="radio" name="q12" value="B" data-text="ب) توفير قواعد واضحة تسمح للتطبيق بطلب البيانات من الخدمة الأخرى."> ب) توفير قواعد واضحة تسمح للتطبيق بطلب البيانات من الخدمة الأخرى.</label>
+            <label><input type="radio" name="q12" value="C" data-text="ج) تخزين جميع البيانات داخل متصفح المستخدم فقط."> ج) تخزين جميع البيانات داخل متصفح المستخدم فقط.</label>
+            <label><input type="radio" name="q12" value="D" data-text="د) تشفير شاشة التطبيق ومنع تعديلها."> د) تشفير شاشة التطبيق ومنع تعديلها.</label>
+            <div class="explanation">التفسير: API توفر قواعد التواصل وطلب البيانات بين البرامج والخدمات.</div>
+        </div>
+
+        <div class="question" data-q="q13" data-title="السؤال 13 (JSON)">
+            <p>13. أعادت خدمة الطقس البيانات التالية: <br><code>{ "city": "Cairo", "temperature": 31 }</code><br>يريد التطبيق عرض درجة الحرارة للمستخدم. ما الاختيار الصحيح؟</p>
+            <label><input type="radio" name="q13" value="A" data-text="أ) استخدام القيمة المرتبطة بالمفتاح city."> أ) استخدام القيمة المرتبطة بالمفتاح city.</label>
+            <label><input type="radio" name="q13" value="B" data-text="ب) استخدام القيمة المرتبطة بالمفتاح temperature."> ب) استخدام القيمة المرتبطة بالمفتاح temperature.</label>
+            <label><input type="radio" name="q13" value="C" data-text="ج) استخدام اسم JSON باعتباره درجة الحرارة."> ج) استخدام اسم JSON باعتباره درجة الحرارة.</label>
+            <label><input type="radio" name="q13" value="D" data-text="د) استخدام الأقواس باعتبارها قيمة درجة الحرارة."> د) استخدام الأقواس باعتبارها قيمة درجة الحرارة.</label>
+            <div class="explanation">التفسير: المفتاح temperature يرتبط بالقيمة الخاصة بدرجة الحرارة.</div>
+        </div>
+
+        <!-- ثالثًا: أساسيات تقنية الواجهة الأمامية -->
+        <h3 class="section-title">ثالثًا: أساسيات تقنية الواجهة الأمامية (الدرس 3-3)</h3>
+
+        <div class="question" data-q="q14" data-title="السؤال 14 (CSS)">
+            <p>14. أنشأ مطور صفحة ويب تحتوي على عناوين وفقرات وروابط، لكنها تظهر بدون ألوان أو تنسيق جذاب. ما التقنية التي يحتاج إلى استخدامها لتحسين مظهر الصفحة؟</p>
+            <label><input type="radio" name="q14" value="A" data-text="أ) HTML."> أ) HTML.</label>
+            <label><input type="radio" name="q14" value="B" data-text="ب) CSS."> ب) CSS.</label>
+            <label><input type="radio" name="q14" value="C" data-text="ج) JavaScript."> ج) JavaScript.</label>
+            <label><input type="radio" name="q14" value="D" data-text="د) JSON."> د) JSON.</label>
+            <div class="explanation">التفسير: CSS مسؤولة عن المظهر والألوان والتنسيق.</div>
+        </div>
+
+        <div class="question" data-q="q15" data-title="السؤال 15 (JavaScript)">
+            <p>15. تحتوي صفحة ويب على زر عند الضغط عليه يقوم بزيادة عدد المسجلين في نشاط معين. أي تقنية مسؤولة عن تنفيذ هذا السلوك التفاعلي؟</p>
+            <label><input type="radio" name="q15" value="A" data-text="أ) HTML."> أ) HTML.</label>
+            <label><input type="radio" name="q15" value="B" data-text="ب) CSS."> ب) CSS.</label>
+            <label><input type="radio" name="q15" value="C" data-text="ج) JavaScript."> ج) JavaScript.</label>
+            <label><input type="radio" name="q15" value="D" data-text="د) HTTPS."> د) HTTPS.</label>
+            <div class="explanation">التفسير: JavaScript مسؤولة عن التفاعلية وتحديث السلوك.</div>
+        </div>
+
+        <div class="question" data-q="q16" data-title="السؤال 16 (HTML الدلالية)">
+            <p>16. أنشأ مطور صفحة ويب تحتوي على العناصر التالية: عنوان رئيسي، قائمة تنقل، ومحتوى رئيسي. يريد أن تكون بنية الصفحة مفهومة بشكل أفضل لقارئات الشاشة ومحركات البحث. ما الاختيار الأنسب؟</p>
+            <label><input type="radio" name="q16" value="A" data-text="أ) استخدام عناصر HTML الدلالية مثل header وnav وmain."> أ) استخدام عناصر HTML الدلالية مثل header وnav وmain.</label>
+            <label><input type="radio" name="q16" value="B" data-text="ب) تغيير ألوان الصفحة باستخدام CSS فقط."> ب) تغيير ألوان الصفحة باستخدام CSS فقط.</label>
+            <label><input type="radio" name="q16" value="C" data-text="ج) إضافة صور أكثر إلى الصفحة."> ج) إضافة صور أكثر إلى الصفحة.</label>
+            <label><input type="radio" name="q16" value="D" data-text="د) استخدام JavaScript بدلًا من HTML."> د) استخدام JavaScript بدلًا من HTML.</label>
+            <div class="explanation">التفسير: HTML الدلالية توضح وتصف وظيفة أجزاء الصفحة لمحركات البحث ومستلزمات الوصول.</div>
+        </div>
+
+        <div class="question" data-q="q17" data-title="السؤال 17 (التصميم المتجاوب)">
+            <p>17. صمم مطور موقعًا يعمل بصورة جيدة على شاشة الكمبيوتر، ولكن عند فتحه على الهاتف تظهر أجزاء الصفحة خارج حدود الشاشة ويصعب استخدامها. ما الحل الأنسب؟</p>
+            <label><input type="radio" name="q17" value="A" data-text="أ) استخدام HTML الدلالية فقط."> أ) استخدام HTML الدلالية فقط.</label>
+            <label><input type="radio" name="q17" value="B" data-text="ب) استخدام التصميم المتجاوب (Responsive Design)."> ب) استخدام التصميم المتجاوب (Responsive Design).</label>
+            <label><input type="radio" name="q17" value="C" data-text="ج) استخدام API."> ج) استخدام API.</label>
+            <label><input type="radio" name="q17" value="D" data-text="د) استخدام طريقة POST."> د) استخدام طريقة POST.</label>
+            <div class="explanation">التفسير: التصميم المتجاوب يعالج اختلاف أحجام الشاشات والأجهزة.</div>
+        </div>
+
+        <div class="question" data-q="q18" data-title="السؤال 18 (موقع متعدد الأجهزة)">
+            <p>18. يريد مطور إنشاء موقع تعليمي يمكن استخدامه على الكمبيوتر والهاتف والجهاز اللوحي دون الحاجة إلى تصميم صفحة منفصلة لكل جهاز. ما الفكرة التي يجب الاعتماد عليها؟</p>
+            <label><input type="radio" name="q18" value="A" data-text="أ) التصميم المتجاوب الذي يضبط التخطيط وفقًا لحجم الشاشة."> أ) التصميم المتجاوب الذي يضبط التخطيط وفقًا لحجم الشاشة.</label>
+            <label><input type="radio" name="q18" value="B" data-text="ب) استخدام قاعدة بيانات أكبر."> ب) استخدام قاعدة بيانات أكبر.</label>
+            <label><input type="radio" name="q18" value="C" data-text="ج) الاعتماد على HTML وحدها دون أي تنسيق."> ج) الاعتماد على HTML وحدها دون أي تنسيق.</label>
+            <label><input type="radio" name="q18" value="D" data-text="د) استخدام HTTP بدلًا من HTTPS."> د) استخدام HTTP بدلًا من HTTPS.</label>
+            <div class="explanation">التفسير: التصميم المتجاوب يجعل التخطيط ملائماً لمختلف الأجهزة تلقائياً.</div>
+        </div>
+
+        <div class="question" data-q="q19" data-title="السؤال 19 (React)">
+            <p>19. يعمل فريق تطوير على إنشاء تطبيق ويب، ويريد تقليل كتابة الأكواد المتكررة وإعادة استخدام مكونات واجهة المستخدم عند تغير البيانات. أي اختيار يتناسب مع هذه الحاجة؟</p>
+            <label><input type="radio" name="q19" value="A" data-text="أ) استخدام React."> أ) استخدام React.</label>
+            <label><input type="radio" name="q19" value="B" data-text="ب) استخدام HTTP."> ب) استخدام HTTP.</label>
+            <label><input type="radio" name="q19" value="C" data-text="ج) استخدام قاعدة البيانات فقط."> ج) استخدام قاعدة البيانات فقط.</label>
+            <label><input type="radio" name="q19" value="D" data-text="د) استخدام JSON."> د) استخدام JSON.</label>
+            <div class="explanation">التفسير: React مكتبة تساعد في بناء واجهات من مكونات قابلة لإعادة الاستخدام.</div>
+        </div>
+
+        <div class="question" data-q="q20" data-title="السؤال 20 (توزيع التقنيات)">
+            <p>20. يريد نادي طلابي إنشاء صفحة تعرض الفعاليات، وتنسق ألوان النادي، وتحتوي على عداد يتغير عند الضغط على زر التسجيل. ما التوزيع الصحيح للتقنيات؟</p>
+            <label><input type="radio" name="q20" value="A" data-text="أ) HTML لتنسيق الألوان، وCSS لتحديث العداد، وJavaScript لإنشاء هيكل الصفحة."> أ) HTML لتنسيق الألوان، وCSS لتحديث العداد، وJavaScript لإنشاء هيكل الصفحة.</label>
+            <label><input type="radio" name="q20" value="B" data-text="ب) HTML لبناء محتوى الفعاليات، وCSS لتنسيق الألوان، وJavaScript لتحديث العداد."> ب) HTML لبناء محتوى الفعاليات، وCSS لتنسيق الألوان، وJavaScript لتحديث العداد.</label>
+            <label><input type="radio" name="q20" value="C" data-text="ج) HTML لتحديث العداد، وCSS لبناء المحتوى، وJavaScript لتنسيق الألوان."> ج) HTML لتحديث العداد، وCSS لبناء المحتوى، وJavaScript لتنسيق الألوان.</label>
+            <label><input type="radio" name="q20" value="D" data-text="د) HTML لتنفيذ جميع المهام دون الحاجة إلى التقنيات الأخرى."> د) HTML لتنفيذ جميع المهام دون الحاجة إلى التقنيات الأخرى.</label>
+            <div class="explanation">التفسير: HTML للبنية والمحتوى، وCSS للمظهر والتنسيق، وJavaScript للتفاعل وتحديث العداد.</div>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="calculateScore()">إرسال الإجابات وعرض النتيجة</button>
+    </form>
+
+    <div id="result-box"></div>
+    
+    <div id="review-box">
+        <h3 style="margin-top:0;">📋 تقرير الأخطاء والتصحيح:</h3>
+        <div id="wrong-answers-list"></div>
+    </div>
+
+    <div class="footer-credit">
+        اعداد وتصميم Mr.John Wagdy
+    </div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: "B", q2: "C", q3: "B", q4: "C", q5: "B",
+        q6: "C", q7: "C", q8: "B", q9: "C", q10: "B",
+        q11: "C", q12: "B", q13: "B", q14: "B", q15: "C",
+        q16: "A", q17: "B", q18: "A", q19: "A", q20: "B"
+    };
+
+    let timerInterval;
+
+    // تشغيل العداد التنازلي فور تحميل الصفحة مباشرة
+    function startTimer(duration, display) {
+        let timer = duration, minutes, seconds;
+        timerInterval = setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                clearInterval(timerInterval);
+                alert("انتهى الوقت المحدد للاختبار! سيتم إرسال إجاباتك تلقائياً.");
+                calculateScore();
+            }
+        }, 1000);
     }
 
-    function autoSubmitQuiz() {
-      if (isSubmitted) return;
-      document.getElementById('quizForm').dispatchEvent(new Event('submit'));
-    }
-
-    // 6. أحداث إرسال النموذج
-    document.getElementById('quizForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      if (isSubmitted) return;
-
-      isSubmitted = true;
-      clearInterval(timerInterval);
-
-      const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'جاري التصحيح وتسجيل البيانات...';
-
-      const form = document.getElementById('quizForm');
-      const studentName = form.studentName.value || "طالب بدون اسم";
-
-      // تجميع إجابات الطالب
-      const formData = { studentName: studentName };
-      questionsData.forEach(q => {
-        formData[`q${q.id}`] = form[`q${q.id}`] ? form[`q${q.id}`].value : "";
-      });
-
-      // حساب الدرجة
-      const { score, review } = calculateGrade(formData);
-      formData.score = score;
-
-      // إرسال البيانات لجوجل شيت
-      if (SCRIPT_URL && SCRIPT_URL !== "ضع_رابط_WEB_APP_هنا") {
-        fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        }).catch(err => console.error(err));
-      }
-
-      // عرض النتيجة وتفاصيل الأجوبة
-      form.style.display = 'none';
-      
-      const resultCard = document.getElementById('resultCard');
-      const resultTitle = document.getElementById('resultTitle');
-      const resultScore = document.getElementById('resultScore');
-      const resultDetails = document.getElementById('resultDetails');
-      const reviewContainer = document.getElementById('reviewContainer');
-
-      const percentage = Math.round((score / 25) * 100);
-      resultScore.textContent = `${score} / 25`;
-      resultDetails.textContent = `النسبة المئوية: ${percentage}% | الطالب: ${studentName}`;
-
-      if (percentage >= 50) {
-        resultTitle.textContent = "🎉 مبروك! لقد اجتزت الاختبار بنجاح.";
-        resultCard.classList.remove('fail');
-      } else {
-        resultTitle.textContent = "⚠️ للأسف لم تجتز الاختبار. حاول مراجعة الدروس مجدداً.";
-        resultCard.classList.add('fail');
-      }
-
-      let reviewHTML = '<h3 style="margin-bottom: 15px;">تفاصيل التقييم وإجابات الأسئلة (25 سؤال):</h3>';
-      review.forEach((item, idx) => {
-        reviewHTML += `
-          <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
-            <strong>س${idx + 1}: ${item.title}</strong><br>
-            <span>الحالة: ${item.isCorrect ? '✓ إجابة صحيحة' : '✗ إجابة خاطئة'}</span><br>
-            <span>إجابتك: ${item.userAns}</span>
-            ${!item.isCorrect ? `<br><span>الإجابة النموذجية: ${item.correctAns}</span>` : ''}
-          </div>
-        `;
-      });
-
-      reviewContainer.innerHTML = reviewHTML;
-      resultCard.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // تفعيل العداد بمجرد تحميل الصفحة
+    document.addEventListener("DOMContentLoaded", function () {
+        let twentyMinutes = 60 * 20,
+            display = document.querySelector('#time');
+        startTimer(twentyMinutes, display);
     });
 
-    // تشغيل الصفحة
-    window.onload = function() {
-      // خلط ترتيب الأسئلة عشوائياً عند فتح الصفحة
-      questionsData = shuffleArray(questionsData);
-      renderQuestions();
-      startTimer();
-    };
-  </script>
+    function calculateScore() {
+        clearInterval(timerInterval);
+
+        let score = 0;
+        let total = Object.keys(correctAnswers).length;
+        let form = document.getElementById('quizForm');
+        let wrongListHTML = "";
+        let wrongQuestionsArray = [];
+        let hasWrongAnswers = false;
+
+        for (let q in correctAnswers) {
+            let selectedOption = form.elements[q];
+            let questionDiv = document.querySelector(`.question[data-q="${q}"]`);
+            let questionTitle = questionDiv.getAttribute('data-title');
+            let explanationText = questionDiv.querySelector('.explanation').innerText;
+            
+            let userVal = "";
+            for (let opt of selectedOption) {
+                let label = opt.parentElement;
+                label.style.backgroundColor = "#ffffff";
+                label.style.borderColor = "#e5e7eb";
+                label.style.color = "#1f2937";
+
+                if (opt.checked) {
+                    userVal = opt.value;
+                    if (userVal === correctAnswers[q]) {
+                        score++;
+                        label.style.backgroundColor = "#d1fae5";
+                        label.style.borderColor = "#10b981";
+                        label.style.color = "#065f46";
+                    } else {
+                        label.style.backgroundColor = "#fee2e2";
+                        label.style.borderColor = "#ef4444";
+                        label.style.color = "#991b1b";
+                    }
+                }
+
+                if (opt.value === correctAnswers[q]) {
+                    label.style.borderWidth = "2px";
+                    label.style.borderColor = "#10b981";
+                }
+            }
+
+            if (userVal !== correctAnswers[q]) {
+                hasWrongAnswers = true;
+                let correctOptText = questionDiv.querySelector(`input[value="${correctAnswers[q]}"]`).getAttribute('data-text');
+                let userOptText = userVal ? questionDiv.querySelector(`input[value="${userVal}"]`).getAttribute('data-text') : "لم يقم بالإجابة";
+
+                wrongQuestionsArray.push(`${questionTitle} (إجابته: ${userOptText})`);
+
+                wrongListHTML += `
+                    <div class="wrong-item">
+                        <p>❓ ${questionDiv.querySelector('p').innerText}</p>
+                        <div style="margin-bottom: 4px; color: #dc2626;">❌ إجابتك: ${userOptText}</div>
+                        <div style="margin-bottom: 6px; color: #059669; font-weight: 700;">✔️ الإجابة الصحيحة: ${correctOptText}</div>
+                        <div style="font-size: 13px; color: #4b5563; background: #f9fafb; padding: 6px 10px; border-radius: 6px;">💡 ${explanationText}</div>
+                    </div>
+                `;
+            }
+        }
+
+        let percentage = Math.round((score / total) * 100);
+
+        // --- إرسال النتيجة والأخطاء إلى Google Sheets تلقائياً ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby_uWhC93nYgyAxi3UcpFa3uiFlD2dpuVyldHzJWwVd7dr0Y_n8xuETTfHrYf9LzIWY/exec';
+        
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                score: score, 
+                total: total, 
+                percentage: percentage, 
+                wrongQuestions: wrongQuestionsArray 
+            })
+        }).catch(error => console.error('Error!', error.message));
+
+        let resultBox = document.getElementById('result-box');
+        resultBox.style.display = 'block';
+        resultBox.innerHTML = `🏆 لقد حصلت على ${score} من ${total} بنسبة نجاح (${percentage}%)`;
+
+        let reviewBox = document.getElementById('review-box');
+        if (hasWrongAnswers) {
+            document.getElementById('wrong-answers-list').innerHTML = wrongListHTML;
+            reviewBox.style.display = 'block';
+        } else {
+            reviewBox.style.display = 'block';
+            reviewBox.style.backgroundColor = "#d1fae5";
+            reviewBox.style.borderColor = "#10b981";
+            reviewBox.style.color = "#065f46";
+            document.getElementById('wrong-answers-list').innerHTML = "<p style='text-align: center; font-weight: 700; font-size: 16px; margin: 0;'>🎉 ممتاز جداً! لقد أجبت على جميع الأسئلة بصورة صحيحة تماماً.</p>";
+        }
+        
+        let inputs = form.getElementsByTagName('input');
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = true;
+        }
+
+        document.querySelector('.submit-btn').style.display = 'none';
+        resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
 </body>
 </html>
